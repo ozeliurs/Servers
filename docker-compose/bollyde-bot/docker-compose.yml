@@ -1,0 +1,7 @@
+version: "3.9"
+services:
+  web:
+    build: bollyde-bot/.
+    volumes:
+      - ./.discord:/app/.discord
+    restart: unless-stopped

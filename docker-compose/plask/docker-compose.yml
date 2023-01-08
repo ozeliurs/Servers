@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  web:
+    image: ozeliurs/plask:latest
+    ports:
+      - "8107:5000"
+    volumes:
+      - ./persistent:/app/persistent
+    env_file:
+      - .env
+    restart: always

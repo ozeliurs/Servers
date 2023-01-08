@@ -1,0 +1,15 @@
+version: '3'
+services:
+  web:
+    image: nginx
+    container_name: blog-ozeliurs-com
+    restart: unless-stopped
+    volumes:
+      - ./www:/usr/share/nginx/html:ro
+    ports:
+      - "8087:80"
+    healthcheck:
+      test: [ "CMD", "service", "nginx" ,"status", "||", "exit", "1" ]
+      timeout: 45s
+      interval: 30s
+      retries: 5

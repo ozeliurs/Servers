@@ -1,0 +1,9 @@
+{
+    "rss": [
+            "https://cert.ssi.gouv.fr/alerte/feed/",
+            "https://torrentfreak.com/feed/",
+            "https://www.wired.com/feed/category/security/latest/rss",
+            "https://www.fdn.fr/feed/",
+            "https://www.laquadrature.net/feed/"
+    ]
+}

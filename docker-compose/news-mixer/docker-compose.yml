@@ -1,0 +1,10 @@
+version: '3'
+services:
+  web:
+    image: ozeliurs/news-mixer:latest
+    container_name: news-mixer
+    restart: unless-stopped
+    volumes:
+      - ./persistent:/app/persistent:rw
+    ports:
+     - "8089:8967"
