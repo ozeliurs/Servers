@@ -1,0 +1,12 @@
+version: "3.2"
+services:
+  db:
+    container_name: cockroach-db
+    image: cockroachdb/cockroach:latest
+    volumes:
+      - ./certs:/etc/cockroach/certs
+      - ./data:/cockroach/cockroach-data
+    ports:
+      - "26257:26257"
+      - "8080:8080"
+    command: start --advertise-addr=${EXTERNAL_ADDR} --join=${JOIN} --certs-dir=/etc/cockroach/certs
