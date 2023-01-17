@@ -1,15 +1,21 @@
 version: '3'
 services:
+
   web:
     image: nginx
     container_name: ozeliurs-com
     restart: unless-stopped
     volumes:
       - ./www:/usr/share/nginx/html:ro
-    ports:
-      - 8094:80
-    healthcheck:
-      test: [ "CMD", "service", "nginx" ,"status", "||", "exit", "1" ]
-      timeout: 45s
-      interval: 30s
-      retries: 5
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ozeliurs-com.rule=Host(`ozeliurs.com` || `www.ozeliurs.com`)"
+      - "traefik.http.routers.ozeliurs-com.entrypoints=websecure"
+      - "traefik.http.routers.ozeliurs-com.tls=true"
+      - "traefik.http.routers.ozeliurs-com.tls.certresolver=cloudflare"
+
+networks:
+  traefik:
+    external: true

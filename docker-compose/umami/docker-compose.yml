@@ -1,9 +1,8 @@
 version: '3'
 services:
+
   umami:
     image: ghcr.io/umami-software/umami:postgresql-latest
-    ports:
-      - "8102:3000"
     environment:
       DATABASE_URL: postgresql://umami:umami@db:5432/umami
       DATABASE_TYPE: postgresql
@@ -11,16 +10,29 @@ services:
       - .env
     depends_on:
       - db
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.umami.rule=Host(`umami.ozeiurs.com`)"
+      - "traefik.http.routers.umami.entrypoints=websecure"
+      - "traefik.http.services.umami.loadbalancer.server.port=3000"
+      - "traefik.http.routers.umami.tls.certresolver=cloudflare"
     restart: always
+
   db:
-    image: postgres:12-alpine
+    image: postgres:alpine
     environment:
       POSTGRES_DB: umami
       POSTGRES_USER: umami
       POSTGRES_PASSWORD: umami
     volumes:
-      - ./sql/schema.postgresql.sql:/docker-entrypoint-initdb.d/schema.postgresql.sql:ro
       - umami-db-data:/var/lib/postgresql/data
     restart: always
+
 volumes:
   umami-db-data:
+
+networks:
+  traefik:
+    external: true

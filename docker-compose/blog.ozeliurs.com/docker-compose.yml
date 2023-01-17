@@ -6,10 +6,15 @@ services:
     restart: unless-stopped
     volumes:
       - ./www:/usr/share/nginx/html:ro
-    ports:
-      - "8087:80"
-    healthcheck:
-      test: [ "CMD", "service", "nginx" ,"status", "||", "exit", "1" ]
-      timeout: 45s
-      interval: 30s
-      retries: 5
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.blog-ozeliurs-com.rule=Host(`blog.ozeliurs.com`)"
+      - "traefik.http.routers.blog-ozeliurs-com.entrypoints=websecure"
+      - "traefik.http.routers.blog-ozeliurs-com.tls=true"
+      - "traefik.http.routers.blog-ozeliurs-com.tls.certresolver=cloudflare"
+
+networks:
+  traefik:
+    external: true

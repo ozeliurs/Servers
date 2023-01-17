@@ -8,8 +8,15 @@ services:
       - ./www:/usr/share/nginx/html:ro
     ports:
      - "8088:80"
-    healthcheck:
-      test: [ "CMD", "service", "nginx" ,"status", "||", "exit", "1" ]
-      timeout: 45s
-      interval: 30s
-      retries: 5
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.cf-ozeliurs-com.rule=Host(`cf.ozeliurs.com`)"
+      - "traefik.http.routers.cf-ozeliurs-com.entrypoints=websecure"
+      - "traefik.http.routers.cf-ozeliurs-com.tls=true"
+      - "traefik.http.routers.cf-ozeliurs-com.tls.certresolver=cloudflare"
+
+networks:
+  traefik:
+    external: true

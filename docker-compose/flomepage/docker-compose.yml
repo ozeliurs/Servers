@@ -8,3 +8,12 @@ services:
     volumes:
       - ./persistent:/app/persistent
     restart: always
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.flomepage.rule=Host(`flomepage.ozeliurs.com`)"
+      - "traefik.http.routers.flomepage.entrypoints=websecure"
+      - "traefik.http.routers.flomepage.tls=true"
+      - "traefik.http.routers.flomepage.tls.certresolver=letsencrypt"
+      - "traefik.http.services.flomepage.loadbalancer.server.port=5000"

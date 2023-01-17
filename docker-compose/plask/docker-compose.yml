@@ -3,10 +3,22 @@ version: '3'
 services:
   web:
     image: ozeliurs/plask:latest
-    ports:
-      - "8107:5000"
+    restart: always
     volumes:
       - ./persistent:/app/persistent
     env_file:
       - .env
-    restart: always
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.plask.rule=Host(`plask.ozeliurs.com`)"
+      - "traefik.http.routers.plask.entrypoints=websecure"
+      - "traefik.http.routers.plask.tls=true"
+      - "traefik.http.routers.plask.tls.certresolver=cloudflare"
+      - "traefik.http.services.plask.loadbalancer.server.port=5000"
+    
+
+networks:
+  traefik:
+    external: true

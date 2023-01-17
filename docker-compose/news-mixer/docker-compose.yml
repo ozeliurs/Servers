@@ -6,5 +6,16 @@ services:
     restart: unless-stopped
     volumes:
       - ./persistent:/app/persistent:rw
-    ports:
-     - "8089:8967"
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.news-mixer.rule=Host(`nm.ozeliurs.com`)"
+      - "traefik.http.routers.news-mixer.entrypoints=websecure"
+      - "traefik.http.routers.news-mixer.tls=true"
+      - "traefik.http.routers.news-mixer.tls.certresolver=cloudflare"
+      - "traefik.http.services.news-mixer.loadbalancer.server.port=8967"
+
+networks:
+  traefik:
+    external: true

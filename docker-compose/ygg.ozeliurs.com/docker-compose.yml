@@ -6,5 +6,15 @@ services:
     restart: unless-stopped
     volumes:
       - ./default.conf:/etc/nginx/conf.d/default.conf
-    ports:
-      - 8104:80
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.yggtorrent.rule=Host(`ygg.oze.li` || `ygg.ozeliurs.com`)"
+      - "traefik.http.routers.yggtorrent.entrypoints=websecure"
+      - "traefik.http.routers.yggtorrent.tls=true"
+      - "traefik.http.routers.yggtorrent.tls.certresolver=cloudflare"
+
+networks:
+  traefik:
+    external: true
