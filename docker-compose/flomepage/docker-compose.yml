@@ -3,9 +3,9 @@ version: '3'
 services:
   web:
     image: ozeliurs/flomepage:latest
+    restart: unless-stopped
     volumes:
       - ./persistent:/app/persistent
-    restart: always
     networks:
       - traefik
     labels:

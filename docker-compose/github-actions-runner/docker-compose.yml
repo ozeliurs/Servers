@@ -2,6 +2,7 @@ version: '3.8'
 services:
   worker:
     image: ozeliurs/actions-runner:latest
+    restart: unless-stopped
     env_file: .env
     security_opt:
       # needed on SELinux systems to allow docker container to manage other docker containers
@@ -9,5 +10,4 @@ services:
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
     scale: 3
-    restart: "always"
     cpu_shares: 512

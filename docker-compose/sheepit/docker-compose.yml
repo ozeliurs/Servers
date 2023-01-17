@@ -3,7 +3,7 @@ services:
   renderer:
     image: sheepitrenderfarm/client:text
     container_name: sheepit
-    restart: always
+    restart: unless-stopped
     environment:
       - SHEEP_LOGIN=Ozeliurs
       - SHEEP_PASSWORD=rKrev3DwGwnQCxDpP1gUvE2yGuBFqmgIQLKpkrvE

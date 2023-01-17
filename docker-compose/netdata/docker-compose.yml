@@ -3,10 +3,10 @@ services:
   netdata:
     image: netdata/netdata
     container_name: netdata
+    restart: unless-stopped
     hostname: node01.ozeliurs.com # set to fqdn of host
     ports:
       - 19999:19999
-    restart: unless-stopped
     cap_add:
       - SYS_PTRACE
     security_opt:

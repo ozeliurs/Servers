@@ -3,6 +3,7 @@ services:
 
   umami:
     image: ghcr.io/umami-software/umami:postgresql-latest
+    restart: unless-stopped
     environment:
       DATABASE_URL: postgresql://umami:umami@db:5432/umami
       DATABASE_TYPE: postgresql
@@ -18,17 +19,16 @@ services:
       - "traefik.http.routers.umami.entrypoints=websecure"
       - "traefik.http.services.umami.loadbalancer.server.port=3000"
       - "traefik.http.routers.umami.tls.certresolver=cloudflare"
-    restart: always
 
   db:
     image: postgres:alpine
+    restart: unless-stopped
     environment:
       POSTGRES_DB: umami
       POSTGRES_USER: umami
       POSTGRES_PASSWORD: umami
     volumes:
       - umami-db-data:/var/lib/postgresql/data
-    restart: always
 
 volumes:
   umami-db-data:
