@@ -1,0 +1,61 @@
+global:
+  checkNewVersion: true
+  sendAnonymousUsage: false
+
+# (Optional) Log information
+# ---
+# log:
+#  level: ERROR  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+#   format: common  # common, json, logfmt
+#   filePath: /var/log/traefik/traefik.log
+
+# (Optional) Accesslog
+# ---
+# accesslog:
+  # format: common  # common, json, logfmt
+  # filePath: /var/log/traefik/access.log
+
+# (Optional) Enable API and Dashboard
+# ---
+api:
+  dashboard: true  # false for production or dont expose port for production
+  insecure: false  # false for production
+
+# Entry Points configuration
+# ---
+entryPoints:
+  web:
+    address: :80
+
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+
+  websecure:
+    address: :443
+
+# Configure your CertificateResolver here...
+# ---
+certificatesResolvers:
+  cloudflare:
+    acme:
+      email: admin@ozeliurs.com
+      storage: /letsencrypt/acme.json
+      caServer: "https://acme-v02.api.letsencrypt.org/directory"
+      httpChallenge:
+        entryPoint: web
+
+# (Optional) Disable TLS version 1.0 and 1.1
+#   options:
+#     default:
+#       minVersion: VersionTLS12
+
+providers:
+  docker:
+    exposedByDefault: false
+  file:
+    # watch for dynamic configuration changes
+    directory: /etc/traefik
+    watch: true
