@@ -11,7 +11,7 @@ services:
       - traefik
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.ozeliurs-com.rule=Host(`ozeliurs.com` || `www.ozeliurs.com`)"
+      - "traefik.http.routers.ozeliurs-com.rule= Host(`ozeliurs.com`) || Host(`www.ozeliurs.com`)"
       - "traefik.http.routers.ozeliurs-com.entrypoints=websecure"
       - "traefik.http.routers.ozeliurs-com.tls=true"
       - "traefik.http.routers.ozeliurs-com.tls.certresolver=cloudflare"
