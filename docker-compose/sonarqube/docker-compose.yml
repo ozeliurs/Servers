@@ -6,9 +6,9 @@ services:
     image: sonarqube:community
     restart: unless-stopped
     depends_on:
-      - db
+      - db_sonarqube
     environment:
-      SONAR_JDBC_URL: jdbc:postgresql://db:5432/sonar
+      SONAR_JDBC_URL: jdbc:postgresql://db_sonarqube:5432/sonar
       SONAR_JDBC_USERNAME: ${DB_USER}
       SONAR_JDBC_PASSWORD: ${DB_PASSWORD}
     volumes:
@@ -27,7 +27,7 @@ services:
       - "traefik.http.routers.sonarqube.tls=true"
       - "traefik.http.routers.sonarqube.tls.certresolver=cloudflare"
 
-  db:
+  db_sonarqube:
     image: postgres:12
     restart: always
     environment:
@@ -37,10 +37,8 @@ services:
       - ./postgresql:/var/lib/postgresql
       - ./postgresql/data:/var/lib/postgresql/data
     networks:
-      - sonarqube
+      - traefik
 
 networks:
-  sonarqube:
-    external: false
   traefik:
     external: true

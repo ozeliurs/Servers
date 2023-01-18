@@ -1,27 +1,28 @@
 version: '3'
 services:
-  broker:
+  redis_paperless:
     image: redis:6.0
     restart: unless-stopped
     networks:
-      - paperless
+      - traefik
+    labels:
+      - "traefik.enable=false"
 
-  web:
+  paperless:
     image: jonaswinkler/paperless-ng:latest
     container_name: paperless-ng
     restart: unless-stopped
     depends_on:
-      - broker
+      - redis_paperless
     volumes:
       - ./data:/usr/src/paperless/data
       - ./media:/usr/src/paperless/media
       - ./consume:/usr/src/paperless/consume
       - ./export:/usr/src/paperless/export
     environment:
-      PAPERLESS_REDIS: redis://broker:6379
+      PAPERLESS_REDIS: redis://redis_paperless:6379
     networks:
       - traefik
-      - paperless
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.paperless.rule=Host(`paper.ozeliurs.com`)"
@@ -33,5 +34,3 @@ services:
 networks:
   traefik:
     external: true
-  paperless:
-    external: false
