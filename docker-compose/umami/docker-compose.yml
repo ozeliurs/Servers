@@ -29,6 +29,10 @@ services:
       POSTGRES_PASSWORD: umami
     volumes:
       - umami-db-data:/var/lib/postgresql/data
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=false"
 
 volumes:
   umami-db-data:
