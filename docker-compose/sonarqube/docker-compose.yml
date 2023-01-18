@@ -12,9 +12,9 @@ services:
       SONAR_JDBC_USERNAME: ${DB_USER}
       SONAR_JDBC_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - sonarqube_data:/opt/sonarqube/data
-      - sonarqube_extensions:/opt/sonarqube/extensions
-      - sonarqube_logs:/opt/sonarqube/logs
+      - ./sonarqube/data:/opt/sonarqube/data
+      - ./sonarqube/extensions:/opt/sonarqube/extensions
+      - ./sonarqube/logs:/opt/sonarqube/logs
     ports:
       - "8098:9000"
     networks:
@@ -26,7 +26,7 @@ services:
       - "traefik.http.routers.sonarqube.entrypoints=websecure"
       - "traefik.http.routers.sonarqube.tls=true"
       - "traefik.http.routers.sonarqube.tls.certresolver=cloudflare"
-    
+
   db:
     image: postgres:12
     restart: always
@@ -34,38 +34,10 @@ services:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - postgresql:/var/lib/postgresql
-      - postgresql_data:/var/lib/postgresql/data
+      - ./postgresql:/var/lib/postgresql
+      - ./postgresql/data:/var/lib/postgresql/data
     networks:
       - sonarqube
-    
-
-volumes:
-  sonarqube_data:
-    driver_opts:
-        type: none
-        device: sonarqube/data
-        o: bind
-  sonarqube_extensions:
-    driver_opts:
-        type: none
-        device: sonarqube/extensions
-        o: bind
-  sonarqube_logs:
-    driver_opts:
-        type: none
-        device: sonarqube/logs
-        o: bind
-  postgresql:
-    driver_opts:
-        type: none
-        device: postgresql
-        o: bind
-  postgresql_data:
-    driver_opts:
-        type: none
-        device: postgresql/data
-        o: bind
 
 networks:
   sonarqube:
