@@ -13,5 +13,9 @@ services:
       - "traefik.http.routers.flomepage.rule=Host(`flomepage.ozeliurs.com`)"
       - "traefik.http.routers.flomepage.entrypoints=websecure"
       - "traefik.http.routers.flomepage.tls=true"
-      - "traefik.http.routers.flomepage.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.flomepage.tls.certresolver=cloudflare"
       - "traefik.http.services.flomepage.loadbalancer.server.port=5000"
+
+networks:
+  traefik:
+    external: true
