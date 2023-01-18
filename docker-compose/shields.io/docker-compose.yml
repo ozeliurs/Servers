@@ -1,0 +1,21 @@
+version: '3'
+services:
+  shieldsio:
+    image: shieldsio/shields:next
+    container_name: shieldsio
+    restart: always
+    env_file:
+      - .env
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.shieldsio.rule=Host(`shields.ozeliurs.com`)"
+      - "traefik.http.routers.shieldsio.entrypoints=websecure"
+      - "traefik.http.routers.shieldsio.tls=true"
+      - "traefik.http.routers.shieldsio.tls.certresolver=cloudflare"
+      - "traefik.http.services.plask.loadbalancer.server.port=80"
+
+networks:
+  traefik:
+    external: true
