@@ -5,12 +5,12 @@ services:
     image: ghcr.io/umami-software/umami:postgresql-latest
     restart: unless-stopped
     environment:
-      DATABASE_URL: postgresql://umami:umami@db_sonarqube:5432/umami
+      DATABASE_URL: postgresql://umami:umami@db_umami:5432/umami
       DATABASE_TYPE: postgresql
     env_file:
       - .env
     depends_on:
-      - db_sonarqube
+      - db_umami
     networks:
       - traefik
     labels:
