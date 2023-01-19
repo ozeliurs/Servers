@@ -3,7 +3,7 @@ version: '3.1'
 services:
 
   ghost:
-    image: ghost:4-alpine
+    image: ghost:alpine
     restart: always
     environment:
       database__client: mysql
@@ -17,8 +17,6 @@ services:
       - db_ghost
     networks:
       - traefik
-    volumes:
-      - ./ghost_data:/var/lib/ghost
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.ghost.rule=Host(`ghost.ozeliurs.com`)"
