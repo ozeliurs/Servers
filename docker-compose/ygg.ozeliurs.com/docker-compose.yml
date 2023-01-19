@@ -10,7 +10,7 @@ services:
       - traefik
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.yggtorrent.rule=Host(`ygg.oze.li`) || Host(`ygg.ozeliurs.com`)"
+      - "traefik.http.routers.yggtorrent.rule= Host(`ygg.ozeliurs.com`)"
       - "traefik.http.routers.yggtorrent.entrypoints=websecure"
       - "traefik.http.routers.yggtorrent.tls=true"
       - "traefik.http.routers.yggtorrent.tls.certresolver=cloudflare"
