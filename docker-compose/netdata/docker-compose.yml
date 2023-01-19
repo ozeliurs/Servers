@@ -22,6 +22,7 @@ services:
       - /etc/os-release:/host/etc/os-release:ro
     env_file:
       - .env
+    cpu_shares: 4096 # Monitoring shoud never be starved of resources
 
 volumes:
   netdataconfig:
