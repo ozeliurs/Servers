@@ -1,0 +1,44 @@
+version: '3.1'
+
+services:
+
+  ghost:
+    image: ghost:4-alpine
+    restart: always
+    environment:
+      database__client: mysql
+      database__connection__host: db_ghost
+      database__connection__user: root
+      database__connection__password: ${DB_PASSWORD}
+      database__connection__database: ghost
+      url: https://ghost.ozeliurs.com/
+      NODE_ENV: development
+    depends_on:
+      - db_ghost
+    networks:
+      - traefik
+    volumes:
+      - ./ghost_data:/var/lib/ghost
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ghost.rule=Host(`ghost.ozeliurs.com`)"
+      - "traefik.http.routers.ghost.entrypoints=websecure"
+      - "traefik.http.routers.ghost.tls=true"
+      - "traefik.http.routers.ghost.tls.certresolver=cloudflare"
+      - "traefik.http.services.ghost.loadbalancer.server.port=2368"
+
+  db_ghost:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - traefik
+    volumes:
+      - ./db_data:/var/lib/mysql
+    labels:
+      - "traefik.enable=false"
+
+networks:
+  traefik:
+    external: true
