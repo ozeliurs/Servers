@@ -1,0 +1,23 @@
+version: '3'
+services:
+
+  plexpypal:
+    image: ozeliurs/plexpypal:latest
+    container_name: plexpypal
+    restart: unless-stopped
+    volumes:
+      - ./www:/usr/share/nginx/html:ro
+    networks:
+      - traefik
+    env_file:
+      - .env
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.plexpypal.rule= Host(`plexpypal.ozeliurs.com`)"
+      - "traefik.http.routers.plexpypal.entrypoints=websecure"
+      - "traefik.http.routers.plexpypal.tls=true"
+      - "traefik.http.routers.plexpypal.tls.certresolver=cloudflare"
+
+networks:
+  traefik:
+    external: true
