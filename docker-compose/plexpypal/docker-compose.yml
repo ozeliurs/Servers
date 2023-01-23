@@ -6,7 +6,7 @@ services:
     container_name: plexpypal
     restart: unless-stopped
     volumes:
-      - ./www:/usr/share/nginx/html:ro
+      - ./logs:/app/logs
     networks:
       - traefik
     env_file:
