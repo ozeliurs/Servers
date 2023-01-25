@@ -19,7 +19,7 @@ services:
       - 'traefik.http.routers.authelia.rule=Host(`auth.ozeliurs.com`)'
       - 'traefik.http.routers.authelia.entryPoints=websecure'
       - 'traefik.http.routers.authelia.tls=true'
-      - "traefik.http.routers.plexpypal.tls.certresolver=cloudflare"
+      - "traefik.http.routers.authelia.tls.certresolver=cloudflare"
       - 'traefik.http.middlewares.authelia.forwardAuth.address=http://authelia:9091/api/verify?rd=https%3A%2F%2Fauth.ozeliurs.com%2F'
       - 'traefik.http.middlewares.authelia.forwardAuth.trustForwardHeader=true'
       - 'traefik.http.middlewares.authelia.forwardAuth.authResponseHeaders=Remote-User,Remote-Groups,Remote-Name,Remote-Email'
