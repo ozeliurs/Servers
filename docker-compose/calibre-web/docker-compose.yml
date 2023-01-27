@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  calibre-web:
+    image: linuxserver/calibre-web:latest
+    container_name: calibre-web
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Paris
+    volumes:
+      - ./config:/config
+      - ./books:/books
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.calibre-web.rule=Host(`books.ozeliurs.com`)"
+      - "traefik.http.routers.calibre-web.entrypoints=websecure"
+      - "traefik.http.routers.calibre-web.tls=true"
+      - "traefik.http.routers.calibre-web.tls.certresolver=cloudflare"
+
+networks:
+  traefik:
+    external: true
