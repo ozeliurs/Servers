@@ -12,6 +12,8 @@ services:
     volumes:
       - ./config:/config
       - ./books:/books
+    networks:
+      - traefik
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.calibre-web.rule=Host(`books.ozeliurs.com`)"
