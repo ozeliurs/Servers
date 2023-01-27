@@ -15,8 +15,6 @@ services:
       - ./sonarqube/data:/opt/sonarqube/data
       - ./sonarqube/extensions:/opt/sonarqube/extensions
       - ./sonarqube/logs:/opt/sonarqube/logs
-    ports:
-      - "8098:9000"
     networks:
       - traefik
     labels:

@@ -6,8 +6,6 @@ services:
     restart: unless-stopped
     volumes:
       - ./www:/usr/share/nginx/html:ro
-    ports:
-     - "8088:80"
     networks:
       - traefik
     labels:
