@@ -19,7 +19,7 @@ global:
 # ---
 api:
   dashboard: true  # false for production or dont expose port for production
-  insecure: false  # false for production
+  insecure: true  # false for production
 
 metrics:
   prometheus:

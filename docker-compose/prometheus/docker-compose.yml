@@ -9,8 +9,6 @@ services:
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
       - "--storage.tsdb.path=/prometheus"
-    ports:
-      - "9090:9090"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.prometheus.rule=Host(`prometheus.ozeliurs.com`)"
@@ -25,8 +23,6 @@ services:
     container_name: grafana
     volumes:
       - ./grafana:/var/lib/grafana
-    ports:
-      - "3000:3000"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.grafana.rule=Host(`grafana.ozeliurs.com`)"
