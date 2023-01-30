@@ -15,7 +15,7 @@ services:
       - traefik
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.umami.rule=Host(`umami.ozeiurs.com`)"
+      - "traefik.http.routers.umami.rule=Host(`umami.ozeliurs.com`)"
       - "traefik.http.routers.umami.entrypoints=websecure"
       - "traefik.http.services.umami.loadbalancer.server.port=3000"
       - "traefik.http.routers.umami.tls.certresolver=cloudflare"
