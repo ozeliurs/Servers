@@ -1,0 +1,41 @@
+version: '3.2'
+services:
+
+  prometheus:
+  image: prom/prometheus:latest
+  container name: prometheus
+  volumes:
+    - ./prometheus/:/etc/prometheus/
+  command:
+    - "--config.file=/etc/prometheus/prometheus.yml"
+    - "--storage.tsdb.path=/prometheus"
+  ports:
+    - "9090:9090"
+  labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.prometheus.rule=Host(`prometheus.ozeliurs.com`)"
+    - "traefik.http.routers.prometheus.entrypoints=websecure"
+    - "traefik.http.routers.prometheus.tls=true"
+    - "traefik.http.routers.prometheus.tls.certresolver=cloudflare"
+  networks:
+    - traefik
+
+  grafana:
+    image: grafana/grafana:6.2.5
+    container name: grafana
+    volumes:
+      - ./grafana:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.grafana.rule=Host(`grafana.ozeliurs.com`)"
+      - "traefik.http.routers.grafana.entrypoints=websecure"
+      - "traefik.http.routers.grafana.tls=true"
+      - "traefik.http.routers.grafana.tls.certresolver=cloudflare"
+    networks:
+      - traefik
+
+networks:
+  traefik:
+    external: true
