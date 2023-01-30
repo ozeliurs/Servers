@@ -21,6 +21,17 @@ api:
   dashboard: true  # false for production or dont expose port for production
   insecure: false  # false for production
 
+metrics:
+  prometheus:
+    entryPoint: traefik
+    buckets:
+      - 0.1
+      - 0.3
+      - 1.2
+      - 5.0
+    addEntryPointsLabels: true
+    addServicesLabels: true
+
 # Entry Points configuration
 # ---
 entryPoints:
