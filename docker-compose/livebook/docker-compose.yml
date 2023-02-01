@@ -12,6 +12,9 @@ services:
       - "traefik.http.routers.livebook.tls=true"
       - "traefik.http.routers.livebook.tls.certresolver=cloudflare"
       - "traefik.http.services.livebook.loadbalancer.server.port=8080"
+    volumes:
+      - ./data:/data
+    user: 1000:1000
     env_file:
       - .env
     networks:
