@@ -1,0 +1,22 @@
+version: '3.2'
+services:
+
+  livebook:
+    image: livebook/livebook
+    container_name: livebook
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.livebook.rule=Host(`livebook.ozeliurs.com`)"
+      - "traefik.http.routers.livebook.entrypoints=websecure"
+      - "traefik.http.routers.livebook.tls=true"
+      - "traefik.http.routers.livebook.tls.certresolver=cloudflare"
+      - "traefik.http.services.livebook.loadbalancer.server.port=8080"
+    env_file:
+      - .env
+    networks:
+      - traefik
+
+networks:
+  traefik:
+    external: true
