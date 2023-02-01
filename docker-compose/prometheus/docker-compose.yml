@@ -18,20 +18,6 @@ services:
     networks:
       - traefik
 
-  grafana:
-    image: grafana/grafana:6.2.5
-    container_name: grafana
-    volumes:
-      - ./grafana:/var/lib/grafana
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.grafana.rule=Host(`grafana.ozeliurs.com`)"
-      - "traefik.http.routers.grafana.entrypoints=websecure"
-      - "traefik.http.routers.grafana.tls=true"
-      - "traefik.http.routers.grafana.tls.certresolver=cloudflare"
-    networks:
-      - traefik
-
 networks:
   traefik:
     external: true

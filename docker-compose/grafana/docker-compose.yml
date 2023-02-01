@@ -1,0 +1,19 @@
+version: '3.2'
+services:
+  grafana:
+    image: grafana/grafana-oss
+    container_name: grafana
+    volumes:
+      - ./grafana:/var/lib/grafana
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.grafana.rule=Host(`grafana.ozeliurs.com`)"
+      - "traefik.http.routers.grafana.entrypoints=websecure"
+      - "traefik.http.routers.grafana.tls=true"
+      - "traefik.http.routers.grafana.tls.certresolver=cloudflare"
+    networks:
+      - traefik
+
+networks:
+  traefik:
+    external: true
