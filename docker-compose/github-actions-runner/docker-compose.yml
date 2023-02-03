@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   worker:
-    image: ozeliurs/actions-runner:latest
+    image: ozeliurs/github-actions-runner:latest
     restart: unless-stopped
     env_file: .env
     security_opt:
