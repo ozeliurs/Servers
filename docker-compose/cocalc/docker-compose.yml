@@ -11,10 +11,10 @@ services:
       - traefik
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.gitea.rule=Host(`cocalc.ozeliurs.com`)"
-      - "traefik.http.routers.gitea.entrypoints=websecure"
-      - "traefik.http.services.gitea.loadbalancer.server.port=80"
-      - "traefik.http.routers.gitea.tls.certresolver=cloudflare"
+      - "traefik.http.routers.cocalc.rule=Host(`cocalc.ozeliurs.com`)"
+      - "traefik.http.routers.cocalc.entrypoints=websecure"
+      - "traefik.http.services.cocalc.loadbalancer.server.port=80"
+      - "traefik.http.routers.cocalc.tls.certresolver=cloudflare"
     
 networks:
   traefik:
