@@ -15,6 +15,7 @@ services:
       - "traefik.http.routers.cocalc.entrypoints=websecure"
       - "traefik.http.routers.cocalc.tls=true"
       - "traefik.http.routers.cocalc.tls.certresolver=certbot"
+      - "traefik.http.services.cocalc.loadbalancer.server.port=443"
     
 networks:
   traefik:
