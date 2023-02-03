@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  web:
+    image: sagemathinc/cocalc:latest
+    container_name: cocalc
+    restart: unless-stopped
+    volumes:
+      - ./data:/projects
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.cocalc.rule=Host(`cocalc.ozeliurs.com`)"
+      - "traefik.http.routers.cocalc.entrypoints=websecure"
+      - "traefik.http.routers.cocalc.tls=true"
+      - "traefik.http.routers.cocalc.tls.certresolver=certbot"
+    
+networks:
+  traefik:
+    external: true
