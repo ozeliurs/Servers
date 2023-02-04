@@ -23,6 +23,8 @@ services:
       - CMD_DOMAIN=hedgedoc.ozeliurs.com
       - CMD_PROTOCOL_USESSL=true
       - CMD_URL_ADDPORT=false
+      - CMD_EMAIL=true
+      # - CMD_ALLOW_EMAIL_REGISTER=true
     volumes:
       - ./data:/hedgedoc/public/uploads
     depends_on:
