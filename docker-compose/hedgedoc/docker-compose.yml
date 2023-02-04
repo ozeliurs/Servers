@@ -1,0 +1,41 @@
+version: '3'
+services:
+
+  hedgedoc_db:
+    image: postgres:13.4-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=hedgedoc
+      - POSTGRES_DB=hedgedoc
+    env_file:
+      - .env
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    networks:
+      - traefik
+
+  app:
+    # Make sure to use the latest release from https://hedgedoc.org/latest-release
+    image: quay.io/hedgedoc/hedgedoc:latest
+    restart: unless-stopped
+    environment:
+      - CMD_DB_URL=postgres://hedgedoc:${POSTGRES_PASSWORD}@hedgedoc_db:5432/hedgedoc
+      - CMD_DOMAIN=hedgedoc.ozeliurs.com
+      - CMD_URL_ADDPORT=true
+    volumes:
+      - ./data:/hedgedoc/public/uploads
+    depends_on:
+      - hedgedoc_db
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.hedgedoc.rule=Host(`hedgedoc.ozeliurs.com`)"
+      - "traefik.http.routers.hedgedoc.entrypoints=websecure"
+      - "traefik.http.routers.hedgedoc.tls=true"
+      - "traefik.http.routers.hedgedoc.tls.certresolver=cloudlfare"
+
+networks:
+  traefik:
+    external: true
+  
