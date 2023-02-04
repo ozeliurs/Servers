@@ -22,7 +22,7 @@ services:
       - CMD_DB_URL=postgres://hedgedoc:${POSTGRES_PASSWORD}@hedgedoc_db:5432/hedgedoc
       - CMD_DOMAIN=hedgedoc.ozeliurs.com
       - CMD_HSTS_ENABLE=true
-      - CMD_URL_ADDPORT=true
+      - CMD_URL_ADDPORT=false
     volumes:
       - ./data:/hedgedoc/public/uploads
     depends_on:
