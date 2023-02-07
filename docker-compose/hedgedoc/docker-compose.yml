@@ -36,7 +36,7 @@ services:
       - "traefik.http.routers.hedgedoc.rule=Host(`hedgedoc.ozeliurs.com`)"
       - "traefik.http.routers.hedgedoc.entrypoints=websecure"
       - "traefik.http.routers.hedgedoc.tls=true"
-      - "traefik.http.routers.hedgedoc.tls.certresolver=cloudlfare"
+      - "traefik.http.routers.hedgedoc.tls.certresolver=cloudflare"
 
 networks:
   traefik:
