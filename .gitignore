@@ -1,2 +1,6 @@
 .DS_Store
 .env
+.bash_history
+.bash_logout
+.bashrc
+.profile
