@@ -2,7 +2,7 @@ version: '3'
 services:
   web:
     image: ozeliurs/ozeliurs-com:latest
-    container_name: ozeliurs-com
+    container_name: beta-ozeliurs-com
     restart: unless-stopped
     networks:
       - traefik
