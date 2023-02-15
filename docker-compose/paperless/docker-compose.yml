@@ -9,7 +9,7 @@ services:
       - "traefik.enable=false"
 
   paperless:
-    image: jonaswinkler/paperless-ng:latest
+    image: ghcr.io/paperless-ngx/paperless-ngx:latest
     container_name: paperless-ng
     restart: unless-stopped
     depends_on:
