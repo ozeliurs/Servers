@@ -11,6 +11,3 @@ services:
       - /home/kiwix/data:/data
       - /home/kiwix/library.xml:/library.xml
       - /home/kiwix/zim:/zim
-    environment:
-      - ZIM_PATH=/zim
-      - ZIM_FILENAMES=*.zim
