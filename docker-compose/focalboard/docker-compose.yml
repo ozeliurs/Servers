@@ -7,6 +7,8 @@ services:
     image: mattermost/focalboard:latest
     container_name: focalboard
     restart: unless-stopped
+    volumes:
+      - ./focalboard-data:/focalboard-data
     networks:
       - traefik
     labels:
@@ -15,3 +17,7 @@ services:
       - "traefik.http.routers.focalboard.entrypoints=websecure"
       - "traefik.http.routers.focalboard.tls=true"
       - "traefik.http.routers.focalboard.tls.certresolver=cloudflare"
+
+networks:
+  traefik:
+    external: true
