@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  web_wikipedia:
+    build: wikipedia
+    container_name: web_wikipedia
+    restart: unless-stopped
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.web_wikipedia.rule=Host(`wikipedia.ozeliurs.com`)"
+      - "traefik.http.routers.web_wikipedia.entrypoints=web"
+      - "traefik.http.routers.web_wikipedia.tls.certresolver=cloudflare"
+      - "traefik.http.routers.web_wikipedia.tls=true"
+
+networks:
+  traefik:
+    external: true
