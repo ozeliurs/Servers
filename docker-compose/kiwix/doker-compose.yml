@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+  kiwix:
+    image: kiwix/kiwix-serve:latest
+    container_name: kiwix
+    restart: unless-stopped
+    ports:
+      - 5000:8080
+    volumes:
+      - /home/kiwix/data:/data
+      - /home/kiwix/library.xml:/library.xml
+      - /home/kiwix/zim:/zim
+    environment:
+      - ZIM_PATH=/zim
+      - ZIM_FILENAMES=*.zim
