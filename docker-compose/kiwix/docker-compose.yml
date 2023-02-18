@@ -8,6 +8,8 @@ services:
     ports:
       - 5000:8080
     volumes:
-      - /home/kiwix/data:/data
-      - /home/kiwix/library.xml:/library.xml
-      - /home/kiwix/zim:/zim
+      - ./library.xml:/library.xml
+      - ./zim:/zim
+    environment:
+     - LIBRARY_PATH=/library.xml
+     - ZIM_PATH=/zim
