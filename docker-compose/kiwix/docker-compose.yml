@@ -5,6 +5,7 @@ services:
     image: kiwix/kiwix-serve:latest
     container_name: kiwix
     restart: unless-stopped
+    command: --port 8080 /zim
     ports:
       - 5000:8080
     volumes:
