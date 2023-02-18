@@ -1,0 +1,60 @@
+version: "2.4"
+
+services:
+  mattermost:
+    depends_on:
+      - postgres
+    image: mattermost/mattermost-team-edition:latest
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 200
+    tmpfs:
+      - /tmp
+    networks:
+      - traefik
+    volumes:
+      - ./mattermost/config:/mattermost/config:rw
+      - ./mattermost/data:/mattermost/data:rw
+      - ./mattermost/logs:/mattermost/logs:rw
+      - ./mattermost/m_plugins:/mattermost/plugins:rw
+      - ./mattermost/c_plugins:/mattermost/client/plugins:rw
+      - ./mattermost/bleve-indexes:/mattermost/bleve-indexes:rw
+    environment:
+      - TZ
+      - MM_SERVICESETTINGS_SITEURL
+
+      - MM_SQLSETTINGS_DRIVERNAME=postgres
+      - MM_SQLSETTINGS_DATASOURCE=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?sslmode=disable&connect_timeout=10
+      - MM_BLEVESETTINGS_INDEXDIR=/mattermost/bleve-indexes
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mattermost.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.mattermost.entrypoints=websecure"
+      - "traefik.http.routers.mattermost.tls=true"
+      - "traefik.http.routers.mattermost.tls.certresolver=cloudflare"
+
+
+  postgres:
+    image: postgres:13-alpine
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 100
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /var/run/postgresql
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    networks:
+      - traefik
+    environment:
+      - TZ
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+
+networks:
+  traefik:
+    external: true
