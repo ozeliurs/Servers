@@ -6,11 +6,16 @@ services:
     container_name: kiwix
     restart: unless-stopped
     command: /zim/*.zim
-    ports:
-      - 5000:8080
     volumes:
-      - ./library.xml:/library.xml
       - ./zim:/zim
     environment:
      - LIBRARY_PATH=/library.xml
      - ZIM_PATH=/zim
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.kiwix.rule=Host(`wikipedia.ozeliurs.com`)"
+      - "traefik.http.routers.kiwix.entrypoints=websecure"
+      - "traefik.http.routers.kiwix.tls=true"
+      - "traefik.http.routers.kiwix.tls.certresolver=cloudflare"
