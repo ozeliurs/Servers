@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+  openproject:
+    image: openproject/community:12
+    container_name: openproject
+    restart: unless-stopped
+    environment:
+      - OPENPROJECT_HOST__NAME=openproject.ozeliurs.com
+      - OPENPROJECT_HTTPS=false
+    env_file:
+      - .env
+    volumes:
+      - ./pgdata:/var/openproject/pgdata
+      - ./assets:/var/openproject/assets
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.openproject.rule=Host(`openproject.ozeliurs.com`)"
+      - "traefik.http.routers.openproject.entrypoints=websecure"
+      - "traefik.http.routers.openproject.tls=true"
+      - "traefik.http.routers.openproject.tls.certresolver=cloudflare"
+      - "traefik.http.services.openproject.loadbalancer.server.port=80"
+
+networks:
+  traefik:
+    external: true
