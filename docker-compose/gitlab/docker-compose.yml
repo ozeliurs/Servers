@@ -1,12 +1,23 @@
 version: '3.6'
 services:
   web:
-    image: 'gitlab/gitlab-ee:latest'
+    image: 'gitlab/gitlab-ce:latest'
     restart: unless-stopped
     hostname: 'gitlab.ozeliurs.com'
     environment:
       GITLAB_OMNIBUS_CONFIG: |
         external_url 'https://gitlab.ozeliurs.com'
+        nginx['listen_port'] = 80
+        nginx['listen_https'] = false
+        nginx['http2_enabled'] = false
+
+        nginx['proxy_set_headers'] = {
+          "Host" => "$$http_host",
+          "X-Real-IP" => "$$remote_addr",
+          "X-Forwarded-For" => "$$proxy_add_x_forwarded_for",
+          "X-Forwarded-Proto" => "https",
+          "X-Forwarded-Ssl" => "on"
+        }
     # ports:
       # - '22:22'
     volumes:
@@ -23,7 +34,7 @@ services:
       - 'traefik.http.routers.gitlab.tls=true'
       - 'traefik.http.routers.gitlab.tls.certresolver=cloudflare'
       - 'traefik.http.services.gitlab.loadbalancer.server.port=80'
-    mem_limit: 3g
+    mem_limit: 4g
 
 networks:
   traefik:
