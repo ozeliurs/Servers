@@ -23,6 +23,7 @@ services:
     env_file:
       - .env
     cpu_shares: 4096 # Monitoring shoud never be starved of resources
+    mem_limit: 512m # Monitoring shoud never take too much memory
 
 volumes:
   netdataconfig:
