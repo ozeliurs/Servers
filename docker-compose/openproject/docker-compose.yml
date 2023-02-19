@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
     environment:
       - OPENPROJECT_HOST__NAME=openproject.ozeliurs.com
-      - OPENPROJECT_HTTPS=false
+      - OPENPROJECT_HTTPS=true
     env_file:
       - .env
     volumes:
