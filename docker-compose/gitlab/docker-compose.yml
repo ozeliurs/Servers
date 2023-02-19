@@ -7,7 +7,7 @@ services:
     environment:
       GITLAB_OMNIBUS_CONFIG: |
         external_url 'https://gitlab.ozeliurs.com'
-    ports:
+    # ports:
       # - '22:22'
     volumes:
       - ./config:/etc/gitlab
