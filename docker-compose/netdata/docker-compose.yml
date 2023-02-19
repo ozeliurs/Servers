@@ -4,7 +4,7 @@ services:
     image: netdata/netdata
     container_name: netdata
     restart: unless-stopped
-    hostname: node01.ozeliurs.com # set to fqdn of host
+    hostname: ${HOSTNAME}
     cap_add:
       - SYS_PTRACE
     security_opt:
