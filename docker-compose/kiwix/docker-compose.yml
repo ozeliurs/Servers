@@ -20,3 +20,7 @@ services:
       - "traefik.http.routers.kiwix.tls=true"
       - "traefik.http.routers.kiwix.tls.certresolver=cloudflare"
       - "traefik.http.services.kiwix.loadbalancer.server.port=8080"
+
+networks:
+  traefik:
+    external: true
