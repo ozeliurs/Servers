@@ -10,8 +10,7 @@ services:
     security_opt:
       - apparmor:unconfined
     volumes:
-      - ./netdata.conf:/etc/netdata/netdata.conf # custom config to reduce memory usage
-      - netdataconfig:/etc/netdata
+      - ./netdataconfig:/etc/netdata  # custom config to reduce memory usage
       - netdatalib:/var/lib/netdata
       - netdatacache:/var/cache/netdata
       - /etc/passwd:/host/etc/passwd:ro
@@ -27,6 +26,5 @@ services:
     mem_limit: 200m # Monitoring shoud never take too much memory see https://learn.netdata.cloud/guides/configure/performance
 
 volumes:
-  netdataconfig:
   netdatalib:
   netdatacache:
