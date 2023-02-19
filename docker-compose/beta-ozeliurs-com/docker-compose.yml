@@ -8,7 +8,7 @@ services:
       - traefik
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.beta-ozeliurs.rule=Host(`beta.ozeliurs.com`)"
+      - "traefik.http.routers.beta-ozeliurs.rule=Host(`ozeliurs.com`) || Host(`www.ozeliurs.com`)"
       - "traefik.http.routers.beta-ozeliurs.entrypoints=websecure"
       - "traefik.http.routers.beta-ozeliurs.tls=true"
       - "traefik.http.routers.beta-ozeliurs.tls.certresolver=cloudflare"
