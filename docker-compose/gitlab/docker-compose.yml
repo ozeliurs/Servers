@@ -1,0 +1,30 @@
+version: '3.6'
+services:
+  web:
+    image: 'gitlab/gitlab-ee:latest'
+    restart: unless-stopped
+    hostname: 'gitlab.ozeliurs.com'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'https://gitlab.ozeliurs.com'
+    ports:
+      # - '22:22'
+    volumes:
+      - ./config:/etc/gitlab
+      - ./logs:/var/log/gitlab
+      - ./data:/var/opt/gitlab
+    shm_size: '256m'
+    networks:
+      - traefik
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.gitlab.rule=Host(`gitlab.ozeliurs.com`)'
+      - 'traefik.http.routers.gitlab.entrypoints=websecure'
+      - 'traefik.http.routers.gitlab.tls=true'
+      - 'traefik.http.routers.gitlab.tls.certresolver=cloudflare'
+      - 'traefik.http.services.gitlab.loadbalancer.server.port=80'
+    mem_limit: 3g
+
+networks:
+  traefik:
+    external: true
