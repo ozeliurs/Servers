@@ -17,14 +17,14 @@ services:
       - "traefik.http.routers.neo4j.rule=Host(`neo4j.ozeliurs.com`) && PathPrefix(`/neo4j`)"
       - "traefik.http.routers.neo4j.tls=true"
       - "traefik.http.routers.neo4j.service=neo4j"
-      - "traefik.http.routers.neo4j.entrypoints=support"
+      - "traefik.http.routers.neo4j.entrypoints=websecure"
       - "traefik.http.routers.neo4j.middlewares=neo4j-auth,neo4j-prefix,security-headers-middleware"
       - "traefik.http.services.neo4j.loadbalancer.server.port=7474"
       - "traefik.http.middlewares.neo4j-auth.basicauth.users=admin:$$apr1$$KscouzVr$$A.AKrAsnIJZYyy5Zxaw52/"
       - "traefik.http.middlewares.neo4j-prefix.stripprefix.prefixes=/neo4j"
 
       # Neo4j bolt service for browser websocket
-      - "traefik.http.routers.neo4j-bolt.entrypoints=support"
+      - "traefik.http.routers.neo4j-bolt.entrypoints=websecure"
       - "traefik.http.routers.neo4j-bolt.tls=true"
       - "traefik.http.routers.neo4j-bolt.rule=Host(`neo4j.ozeliurs.com`)"
       - "traefik.http.routers.neo4j-bolt.service=neo4j-bolt"
@@ -35,7 +35,7 @@ services:
       # Bolt service for drivers
       - "traefik.tcp.routers.neo4j-bolt.rule=HostSNI(`neo4j.ozeliurs.com`)"
       - "traefik.tcp.routers.neo4j-bolt.service=neo4j-bolt"
-      - "traefik.tcp.routers.neo4j-bolt.entrypoints=support"
+      - "traefik.tcp.routers.neo4j-bolt.entrypoints=websecure"
       - "traefik.tcp.routers.neo4j-bolt.tls.passthrough=true"
       - "traefik.tcp.services.neo4j-bolt.loadbalancer.server.port=7687"
     ports:
