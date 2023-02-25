@@ -35,7 +35,7 @@ services:
       - "traefik.tcp.services.neo4j-bolt.loadbalancer.server.port=7687"
     volumes:
       - ./neo4j/conf/:/var/lib/neo4j/conf/
-      - ./neo4j/certificates/:/var/lib/neo4j/certificates/
+      - ../traefik/letsencrypt/certificates/neo4j.ozeliurs.com:/var/lib/neo4j/certificates/
     networks:
       - traefik
 
