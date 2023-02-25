@@ -1,15 +1,8 @@
 services:
   neo4j:
     image: neo4j:latest
-    environment:
-      - NEO4J_dbms_connector_https_advertised__address=:7473
-      - NEO4J_dbms_connector_http_advertised__address=:7474
-      - NEO4J_dbms_connector_bolt_advertised__address=:8443
-      - NEO4J_AUTH=neo4j/password
-      - NEO4J_apoc_export_file_enabled=true
-      - NEO4J_apoc_import_file_enabled=true
-      - NEO4J_apoc_import_file_use__neo4j__config=true
-      - NEO4J_server_bolt_enabled=false
+    env_file:
+      - .env
     labels:
       - "traefik.enable=true"
 
@@ -38,18 +31,14 @@ services:
       - "traefik.tcp.routers.neo4j-bolt.rule=HostSNI(`neo4j.ozeliurs.com`)"
       - "traefik.tcp.routers.neo4j-bolt.service=neo4j-bolt"
       - "traefik.tcp.routers.neo4j-bolt.entrypoints=websecure"
-      # - "traefik.tcp.routers.neo4j-bolt.tls.passthrough=true"
+      - "traefik.tcp.routers.neo4j-bolt.tls.passthrough=true"
       - "traefik.tcp.services.neo4j-bolt.loadbalancer.server.port=7687"
     volumes:
-      - type: volume
-        source: neo4j-data
-        target: /data
+      - ./neo4j/conf/:/var/lib/neo4j/conf/
+      - ./neo4j/certificates/:/var/lib/neo4j/certificates/
     networks:
       - traefik
 
 networks:
   traefik:
     external: true
-
-volumes:
-  neo4j-data:

@@ -4,3 +4,6 @@
 .bash_logout
 .bashrc
 .profile
+*.pem
+*.key
+*.crt

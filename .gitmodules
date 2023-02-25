@@ -1,3 +1,0 @@
-[submodule "docker-compose/wikipedia/wikipedia"]
-	path = docker-compose/wikipedia/wikipedia
-	url = git@github.com:the-contextualizer/wikipedia-endpoint.git
