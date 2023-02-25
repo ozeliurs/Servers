@@ -9,7 +9,7 @@ services:
       - NEO4J_apoc_export_file_enabled=true
       - NEO4J_apoc_import_file_enabled=true
       - NEO4J_apoc_import_file_use__neo4j__config=true
-      - NEO4J_server_bolt_enabled=false
+      # - NEO4J_server_bolt_enabled=false
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik-public"
@@ -19,6 +19,7 @@ services:
       - "traefik.http.routers.neo4j.tls=true"
       - "traefik.http.routers.neo4j.service=neo4j"
       - "traefik.http.routers.neo4j.entrypoints=websecure"
+      - "traefik.http.routers.neo4j.tls.certresolver=cloudflare"
       - "traefik.http.routers.neo4j.middlewares=neo4j-auth,neo4j-prefix"
       - "traefik.http.services.neo4j.loadbalancer.server.port=7474"
       - "traefik.http.middlewares.neo4j-auth.basicauth.users=admin:$$apr1$$KscouzVr$$A.AKrAsnIJZYyy5Zxaw52/"
@@ -29,6 +30,7 @@ services:
       - "traefik.http.routers.neo4j-bolt.tls=true"
       - "traefik.http.routers.neo4j-bolt.rule=Host(`neo4j.ozeliurs.com`)"
       - "traefik.http.routers.neo4j-bolt.service=neo4j-bolt"
+      - "traefik.http.routers.neo4j-bolt.tls.certresolver=cloudflare"
       - "traefik.http.services.neo4j-bolt.loadbalancer.server.port=7687"
       - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https,wss"
       - "traefik.http.routers.neo4j-bolt.middlewares=sslheader"
@@ -39,9 +41,6 @@ services:
       - "traefik.tcp.routers.neo4j-bolt.entrypoints=websecure"
       - "traefik.tcp.routers.neo4j-bolt.tls.passthrough=true"
       - "traefik.tcp.services.neo4j-bolt.loadbalancer.server.port=7687"
-    ports:
-      - 7474:7474
-      - 7687:7687
     volumes:
       - type: volume
         source: neo4j-data
