@@ -12,7 +12,6 @@ services:
       # - NEO4J_server_bolt_enabled=false
     labels:
       - "traefik.enable=true"
-      - "traefik.docker.network=traefik-public"
 
       # Neo4j browser service
       - "traefik.http.routers.neo4j.rule=Host(`neo4j.ozeliurs.com`) && PathPrefix(`/neo4j`)"
