@@ -19,6 +19,8 @@ for certificate in certificates:
     domain_folder = ca_file.parent / f"certificates/{certificate['domain']['main']}"
     domain_folder.mkdir(parents=True, exist_ok=True)
 
+    certificate_data = certificate_data.decode("utf-8").split("\n\n")[0].encode("utf-8")
+
     # Export certificate and key to file
     with open(domain_folder/"certificate.pem", "wb") as certfile:
         certfile.write(certificate_data)
