@@ -2,43 +2,22 @@ services:
   neo4j:
     image: neo4j:latest
     environment:
-      - NEO4J_dbms_connector_https_advertised__address=:7473
-      - NEO4J_dbms_connector_http_advertised__address=:7474
-      - NEO4J_dbms_connector_bolt_advertised__address=:8443
+      - NEO4J_dbms_default__advertised__address=neo4j.ozeliurs.com
+      - NEO4J_dbms_ssl_policy_bolt_enabled=true
+      - NEO4J_dbms_ssl_policy_bolt_base__directory=/var/lib/neo4j/certificates/
+      - NEO4J_dbms_ssl_policy_bolt_private__key=key.key
+      - NEO4J_dbms_ssl_policy_bolt_public__certificate=certificate.crt
+      - NEO4J_dbms_ssl_policy_bolt_client__auth=NONE
+      - NEO4J_dbms_connector_bolt_tls__level=REQUIRED
+      - NEO4J_dbms_connector_https_enabled=true
+      - NEO4J_dbms_ssl_policy_https_enabled=true
+      - NEO4J_dbms_ssl_policy_https_base__directory=/var/lib/neo4j/certificates/
+      - NEO4J_dbms_ssl_policy_https_private__key=key.key
+      - NEO4J_dbms_ssl_policy_https_public__certificate=certificate.crt
+      - NEO4J_dbms_ssl_policy_https_client__auth=NONE
     env_file:
       - .env
-    labels:
-      - "traefik.enable=true"
-
-      # Neo4j browser service
-      - "traefik.http.routers.neo4j.rule=Host(`neo4j.ozeliurs.com`) && PathPrefix(`/neo4j`)"
-      - "traefik.http.routers.neo4j.tls=true"
-      - "traefik.http.routers.neo4j.service=neo4j"
-      - "traefik.http.routers.neo4j.entrypoints=websecure"
-      - "traefik.http.routers.neo4j.tls.certresolver=cloudflare"
-      - "traefik.http.routers.neo4j.middlewares=neo4j-auth,neo4j-prefix"
-      - "traefik.http.services.neo4j.loadbalancer.server.port=7474"
-      - "traefik.http.middlewares.neo4j-auth.basicauth.users=admin:$$apr1$$KscouzVr$$A.AKrAsnIJZYyy5Zxaw52/"
-      - "traefik.http.middlewares.neo4j-prefix.stripprefix.prefixes=/neo4j"
-
-      # Neo4j bolt service for browser websocket
-      - "traefik.http.routers.neo4j-bolt.entrypoints=websecure"
-      - "traefik.http.routers.neo4j-bolt.tls=true"
-      - "traefik.http.routers.neo4j-bolt.rule=Host(`neo4j.ozeliurs.com`)"
-      - "traefik.http.routers.neo4j-bolt.service=neo4j-bolt"
-      - "traefik.http.routers.neo4j-bolt.tls.certresolver=cloudflare"
-      - "traefik.http.services.neo4j-bolt.loadbalancer.server.port=7687"
-      - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https,wss"
-      - "traefik.http.routers.neo4j-bolt.middlewares=sslheader"
-
-      # Bolt service for drivers
-      - "traefik.tcp.routers.neo4j-bolt.rule=HostSNI(`neo4j.ozeliurs.com`)"
-      - "traefik.tcp.routers.neo4j-bolt.service=neo4j-bolt"
-      - "traefik.tcp.routers.neo4j-bolt.entrypoints=websecure"
-      - "traefik.tcp.routers.neo4j-bolt.tls.passthrough=true"
-      - "traefik.tcp.services.neo4j-bolt.loadbalancer.server.port=7687"
     volumes:
-      - ./neo4j/conf/:/var/lib/neo4j/conf/
       - ../traefik/letsencrypt/certificates/neo4j.ozeliurs.com:/var/lib/neo4j/certificates/
     networks:
       - traefik
