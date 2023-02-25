@@ -23,7 +23,7 @@ services:
         - "traefik.http.routers.neo4j.entrypoints=support"
         - "traefik.http.routers.neo4j.middlewares=neo4j-auth,neo4j-prefix,security-headers-middleware"
         - "traefik.http.services.neo4j.loadbalancer.server.port=7474"
-        - "traefik.http.middlewares.neo4j-auth.basicauth.users=admin:$apr1$KscouzVr$A.AKrAsnIJZYyy5Zxaw52/"
+        - "traefik.http.middlewares.neo4j-auth.basicauth.users=admin:$$apr1$$KscouzVr$$A.AKrAsnIJZYyy5Zxaw52/"
         - "traefik.http.middlewares.neo4j-prefix.stripprefix.prefixes=/neo4j"
  
         # Neo4j bolt service for browser websocket
