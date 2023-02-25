@@ -1,6 +1,6 @@
 services:
   neo4j:
-    image: neo4j:latest
+    image: neo4j:4.4
     environment:
       - NEO4J_dbms_default__advertised__address=neo4j.ozeliurs.com
       - NEO4J_dbms_ssl_policy_bolt_enabled=true
