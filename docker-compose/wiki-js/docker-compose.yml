@@ -1,7 +1,7 @@
 version: "3"
 services:
 
-  db:
+  wiki-db:
     image: postgres:11-alpine
     environment:
       POSTGRES_DB: wiki
@@ -21,10 +21,10 @@ services:
     image: ghcr.io/requarks/wiki:2
     restart: unless-stopped
     depends_on:
-      - db
+      - wiki-db
     environment:
       DB_TYPE: postgres
-      DB_HOST: db
+      DB_HOST: wiki-db
       DB_PORT: 5432
       DB_USER: wikijs
       DB_PASS: ${POSTGRES_PASSWORD}
@@ -40,7 +40,7 @@ services:
       - traefik
 
 volumes:
-  db-data:
+  wiki-db-data:
 
 networks:
   traefik:
