@@ -32,7 +32,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.wiki.rule=Host(`wiki.ozeliurs.com`)
-      - traefik.http.routers.wiki.entrypoints=web
+      - traefik.http.routers.wiki.entrypoints=websecure
       - traefik.http.routers.wiki.tls=true
       - traefik.http.routers.wiki.tls.certresolver=cloudflare
       - traefik.http.services.wiki.loadbalancer.server.port=3000
