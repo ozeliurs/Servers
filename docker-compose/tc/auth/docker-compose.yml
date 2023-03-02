@@ -22,7 +22,6 @@ services:
       - SUPER_ADMIN_PASSWORD=${SUPER_ADMIN_PASSWORD}
     volumes:
       - AuthExpressKeys:/usr/app/keys
-    entrypoint: [ './start.sh' ]
     networks:
       - traefik
     labels:
@@ -31,6 +30,9 @@ services:
       - "traefik.http.routers.express-jwt-auth.entrypoints=websecure"
       - "traefik.http.routers.express-jwt-auth.tls=true"
       - "traefik.http.routers.express-jwt-auth.tls.certresolver=cloudflare"
+      - "traefik.http.services.plask.loadbalancer.server.port=8000"
+
+      - "com.centurylinklabs.watchtower.enable=true"
 
 volumes:
   AuthMongoDb:
