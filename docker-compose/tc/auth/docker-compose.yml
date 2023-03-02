@@ -17,7 +17,7 @@ services:
     image: ghcr.io/apoorva64/express-jwt-auth/v1:latest
     pull_policy: always
     environment:
-      - MONGODB_URL=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@auth-mongo:${MONGODB_HOST}/${MONGO_INITDB_DATABASE}?authSource=${MONGODB_AUTH_SOURCE}
+      - MONGODB_URL=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@auth-mongo:${MONGODB_PORT}/${MONGO_INITDB_DATABASE}?authSource=${MONGODB_AUTH_SOURCE}
       - ORIGIN=auth.tc.ozeliurs.com
       - SUPER_ADMIN_PASSWORD=${SUPER_ADMIN_PASSWORD}
     volumes:
