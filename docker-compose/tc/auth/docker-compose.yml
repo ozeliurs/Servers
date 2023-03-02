@@ -31,7 +31,7 @@ services:
       - "traefik.http.routers.express-jwt-auth.entrypoints=websecure"
       - "traefik.http.routers.express-jwt-auth.tls=true"
       - "traefik.http.routers.express-jwt-auth.tls.certresolver=cloudflare"
-      - "traefik.http.services.plask.loadbalancer.server.port=6969"
+      - "traefik.http.services.express-jwt-auth.loadbalancer.server.port=6969"
 
       - "com.centurylinklabs.watchtower.enable=true"
 
