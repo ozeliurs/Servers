@@ -13,6 +13,8 @@ services:
       - "traefik.http.routers.beta-ozeliurs.tls=true"
       - "traefik.http.routers.beta-ozeliurs.tls.certresolver=cloudflare"
 
+      - "com.centurylinklabs.watchtower.enable=true"
+
 networks:
   traefik:
     external: true

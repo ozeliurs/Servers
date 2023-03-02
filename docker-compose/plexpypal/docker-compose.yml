@@ -18,6 +18,8 @@ services:
       - "traefik.http.routers.plexpypal.tls=true"
       - "traefik.http.routers.plexpypal.tls.certresolver=cloudflare"
 
+      - "com.centurylinklabs.watchtower.enable=true"
+
 networks:
   traefik:
     external: true
