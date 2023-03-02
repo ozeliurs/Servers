@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+
+  auth-mongo:
+    image: mongo:latest
+    env_file:
+      - .env
+    volumes:
+      - AuthMongoDb:/data/db
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=false"
+
+  express-jwt-auth:
+    image: ghcr.io/apoorva64/express-jwt-auth/v1:latest
+    pull_policy: always
+    environment:
+      - MONGODB_URL=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@auth-mongo:${MONGODB_HOST}/${MONGO_INITDB_DATABASE}?authSource=${MONGODB_AUTH_SOURCE}
+      - ORIGIN=auth.tc.ozeliurs.com
+      - SUPER_ADMIN_PASSWORD=${SUPER_ADMIN_PASSWORD}
+    volumes:
+      - AuthExpressKeys:/usr/app/keys
+    entrypoint: [ './start.sh' ]
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.express-jwt-auth.rule=Host(`auth.tc.ozeliurs.com`)"
+      - "traefik.http.routers.express-jwt-auth.entrypoints=websecure"
+      - "traefik.http.routers.express-jwt-auth.tls=true"
+      - "traefik.http.routers.express-jwt-auth.tls.certresolver=cloudflare"
+
+volumes:
+  AuthMongoDb:
+  AuthExpressKeys:
+
+networks:
+  traefik:
+    external: true
