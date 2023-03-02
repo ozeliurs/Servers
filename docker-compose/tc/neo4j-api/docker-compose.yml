@@ -1,0 +1,23 @@
+version: '3.7'
+
+services:
+  neo4j-api:
+    image: ghcr.io/the-contextualizer/neo4j-backend/neo4j-backend:latest
+    container_name: neo4j-api
+    restart: unless-stopped
+    env_file:
+      - .env
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.neo4j-api.rule=Host(`neo4j-api.tc.ozeliurs.com`)"
+      - "traefik.http.routers.neo4j-api.entrypoints=websecure"
+      - "traefik.http.routers.neo4j-api.tls=true"
+      - "traefik.http.routers.neo4j-api.tls.certresolver=cloudflare"
+
+      - "com.centurylinklabs.watchtower.enable=true"
+    
+networks:
+  traefik:
+    external: true
