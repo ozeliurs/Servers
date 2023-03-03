@@ -7,6 +7,8 @@ services:
     restart: unless-stopped
     env_file:
       - .env
+    environment:
+      - NEO4J_HOST=neo4j
     networks:
       - traefik
     labels:
@@ -17,6 +19,19 @@ services:
       - "traefik.http.routers.neo4j-api.tls.certresolver=cloudflare"
 
       - "com.centurylinklabs.watchtower.enable=true"
+
+  neo4j:
+    image: neo4j:4.4
+    environment:
+      - NEO4J_AUTH=neo4j/${NEO4J_PASSWORD}
+    networks:
+      - traefik
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+      - "8443:8443"
+    labels:
+      - "traefik.enable=false"
     
 networks:
   traefik:
