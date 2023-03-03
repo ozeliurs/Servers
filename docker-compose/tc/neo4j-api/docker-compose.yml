@@ -11,8 +11,10 @@ services:
       - NEO4J_HOST=neo4j
     networks:
       - traefik
+    ports:
+      - "5000:5000"
     labels:
-      - "traefik.enable=true"
+      - "traefik.enable=false"
       - "traefik.http.routers.neo4j-api.rule=Host(`neo4j-api.tc.ozeliurs.com`)"
       - "traefik.http.routers.neo4j-api.entrypoints=websecure"
       - "traefik.http.routers.neo4j-api.tls=true"
