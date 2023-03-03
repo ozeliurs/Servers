@@ -14,7 +14,7 @@ services:
     ports:
       - "5000:5000"
     labels:
-      - "traefik.enable=false"
+      - "traefik.enable=true"
       - "traefik.http.routers.neo4j-api.rule=Host(`neo4j-api.tc.ozeliurs.com`)"
       - "traefik.http.routers.neo4j-api.entrypoints=websecure"
       - "traefik.http.routers.neo4j-api.tls=true"
