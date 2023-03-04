@@ -1,0 +1,23 @@
+version: '3.9'
+services:
+  kavita:
+    image: kizaing/kavita:latest
+    restart: unless-stopped
+    container_name: kavita
+    volumes:
+      - ./books:/books
+      - ./data:/kavita/config
+    environment:
+      - TZ=Europe/Paris
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.kavita.rule=Host(`books.ozeliurs.com`)"
+      - "traefik.http.routers.kavita.entrypoints=websecure"
+      - "traefik.http.routers.kavita.tls=true"
+      - "traefik.http.routers.kavita.tls.certresolver=cloudflare"
+
+networks:
+  traefik:
+    external: true
