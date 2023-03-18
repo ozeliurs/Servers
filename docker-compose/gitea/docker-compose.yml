@@ -1,8 +1,8 @@
 version: "3"
 
 services:
-  server:
-    image: gitea/gitea:1.18.0
+  web_gitea:
+    image: gitea/gitea:1.18.5
     container_name: gitea
     restart: unless-stopped
     environment:
@@ -16,12 +16,11 @@ services:
     networks:
       - traefik
     volumes:
-      - ./gitea:/data
+      - gitea_data:/data
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     ports:
       - "22:22"
-      - "3000:3000"
     depends_on:
       - db_gitea
     labels:
@@ -40,7 +39,7 @@ services:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_NAME}
     volumes:
-      - ./postgres:/var/lib/postgresql/data
+      - gitea_db:/var/lib/postgresql/data
     labels:
       - "traefik.enable=false"
     networks:
@@ -49,3 +48,7 @@ services:
 networks:
   traefik:
     external: true
+
+volumes:
+  gitea_data:
+  gitea_db:
