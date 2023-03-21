@@ -9,31 +9,5 @@ services:
       - ./container-data/data:/var/lib/headscale
     ports:
       - 8080:8080
-    command: headscale serve
+    entrypoint: headscale serve
     restart: unless-stopped
-    networks:
-      - traefik
-    labels:
-      - "traefik.enable=false"
-
-  headscale-ui:
-    image: ghcr.io/gurucomputing/headscale-ui:latest
-    restart: unless-stopped
-    container_name: headscale-ui
-    networks:
-      - traefik
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.headscale-ui.rule=Host(`headscale.ozeliurs.com`)"
-      - "traefik.http.routers.headscale-ui.entrypoints=websecure"
-      - "traefik.http.routers.headscale-ui.tls=true"
-      - "traefik.http.routers.headscale-ui.tls.certresolver=cloudflare"
-      - "traefik.http.services.headscale-ui.loadbalancer.server.port=80"
-      - "traefik.http.middlewares.headscale-ui.headers.accesscontrolallowmethods=GET,OPTIONS,PUT"
-      - "traefik.http.middlewares.headscale-ui.headers.accesscontrolalloworiginlist=http://headscale.ozeliurs.com:8080"
-      - "traefik.http.middlewares.headscale-ui.headers.accesscontrolmaxage=100"
-      - "traefik.http.middlewares.headscale-ui.headers.addvaryheader=true"
-
-networks:
-  traefik:
-    external: true
