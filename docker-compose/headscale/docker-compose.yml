@@ -23,6 +23,12 @@ services:
       - "traefik.http.routers.headscale.tls.certresolver=cloudflare"
       - "traefik.http.services.headscale.loadbalancer.server.port=8080"
       - "traefik.http.services.headscale.loadbalancer.server.scheme=https"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "https://localhost:8080/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
 
 networks:
   traefik:
