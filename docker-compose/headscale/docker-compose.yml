@@ -18,6 +18,10 @@ services:
       - "traefik.http.routers.headscale.tls=true"
       - "traefik.http.routers.headscale.tls.certresolver=cloudflare"
       - "traefik.http.services.headscale.loadbalancer.server.port=8080"
+      - "traefik.http.services.headscale.loadbalancer.server.scheme=https"
+      - "traefik.http.services.headscale.loadbalancer.server.tls=true"
+      - "traefik.http.services.headscale.loadbalancer.server.tls.caoptional=true"
+      - "traefik.http.services.headscale.loadbalancer.server.tls.insecureskipverify=true"
 
 networks:
   traefik:
