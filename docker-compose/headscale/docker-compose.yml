@@ -9,8 +9,6 @@ services:
       - ./container-data/data:/var/lib/headscale
     entrypoint: headscale serve
     restart: unless-stopped
-    ports:
-      - 3478:3478
     networks:
       - traefik
     labels:
