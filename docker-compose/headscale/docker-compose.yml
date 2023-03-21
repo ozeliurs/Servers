@@ -7,7 +7,14 @@ services:
     volumes:
       - ./container-config:/etc/headscale
       - ./container-data/data:/var/lib/headscale
-    ports:
-      - 8080:8080
     entrypoint: headscale serve
     restart: unless-stopped
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.headscale.rule=Host(`headscale.ozeliurs.com`)"
+      - "traefik.http.routers.headscale.entrypoints=websecure"
+      - "traefik.http.routers.headscale.tls=true"
+      - "traefik.http.routers.headscale.tls.certresolver=cloudflare"
+      - "traefik.http.services.headscale.loadbalancer.server.port=8080"
