@@ -9,10 +9,14 @@ services:
       - ./container-data/data:/var/lib/headscale
     entrypoint: headscale serve
     restart: unless-stopped
+    ports:
+      - 3478:3478
     networks:
       - traefik
     labels:
       - "traefik.enable=true"
+
+      # Server Config
       - "traefik.http.routers.headscale.rule=Host(`headscale.ozeliurs.com`)"
       - "traefik.http.routers.headscale.entrypoints=websecure"
       - "traefik.http.routers.headscale.tls=true"
