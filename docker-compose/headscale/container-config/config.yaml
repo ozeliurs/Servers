@@ -71,33 +71,3 @@ unix_socket_permission: "0770"
 # default static port 41641. This option is intended as a workaround for some buggy
 # firewall devices. See https://tailscale.com/kb/1181/firewalls/ for more information.
 randomize_client_port: false
-
-
-## DERP Server Configuration ======================================================================
-derp:
-  server:
-    # Enable the embedded DERP server ?
-    enabled: false
-
-    # Region ID to use for the embedded DERP server. (User)
-    # The region ID values 900-999 are reserved for use as custom, user-specified regions and will not be used by Tailscale.
-    region_id: 969
-
-    # Region code and name are displayed in the Tailscale UI to identify a DERP region
-    region_code: "ozeliurs"
-    region_name: "Ozeliurs' DERP network"
-
-    # Listens over UDP at the configured address for STUN connections - to help with NAT traversal.
-    stun_listen_addr: "0.0.0.0:3478"
-
-  ## External DERPs Servers ======================================================================
-
-  # List of externally available DERP maps encoded in JSON
-  urls:
-    - https://controlplane.tailscale.com/derpmap/default
-
-  # Update DERP maps automatically
-  auto_update_enabled: true
-
-  # How often to check for DERP map updates
-  update_frequency: 24h
