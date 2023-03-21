@@ -1,6 +1,6 @@
 ---
 # The url clients will connect to.
-server_url: http://headscale.ozeliurs.com:8080
+server_url: https://headscale.ozeliurs.com
 
 # Address to listen to / bind to on the server
 listen_addr: 0.0.0.0:8080
