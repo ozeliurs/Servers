@@ -2,7 +2,7 @@ version: '3.5'
 services:
 
   headscale:
-    image: headscale/headscale:stable
+    image: headscale/headscale:0.21
     container_name: headscale
     volumes:
       - ./container-config:/etc/headscale
