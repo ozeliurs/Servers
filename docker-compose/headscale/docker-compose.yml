@@ -18,3 +18,7 @@ services:
       - "traefik.http.routers.headscale.tls=true"
       - "traefik.http.routers.headscale.tls.certresolver=cloudflare"
       - "traefik.http.services.headscale.loadbalancer.server.port=8080"
+
+networks:
+  traefik:
+    external: true
