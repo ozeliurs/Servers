@@ -8,7 +8,7 @@ services:
       - ./container-config:/etc/headscale
       - ./container-data/data:/var/lib/headscale
     ports:
-      - 27896:8080
+      - 8080:8080
     command: headscale serve
     restart: unless-stopped
     networks:
@@ -29,6 +29,10 @@ services:
       - "traefik.http.routers.headscale-ui.tls=true"
       - "traefik.http.routers.headscale-ui.tls.certresolver=cloudflare"
       - "traefik.http.services.headscale-ui.loadbalancer.server.port=80"
+      - "traefik.http.middlewares.headscale-ui.headers.accesscontrolallowmethods=GET,OPTIONS,PUT"
+      - "traefik.http.middlewares.headscale-ui.headers.accesscontrolalloworiginlist=http://headscale.ozeliurs.com:8080"
+      - "traefik.http.middlewares.headscale-ui.headers.accesscontrolmaxage=100"
+      - "traefik.http.middlewares.headscale-ui.headers.addvaryheader=true"
 
 networks:
   traefik:
