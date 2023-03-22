@@ -1,0 +1,39 @@
+version: '3.7'
+
+services:
+  authelia:
+    image: authelia/authelia
+    container_name: authelia
+    restart: unless-stopped
+    volumes:
+      - ./authelia:/config
+    expose:
+      - 9091
+    networks:
+      - traefik
+    environment:
+      - TZ=Europe/Paris
+      - AUTHELIA_JWT_SECRET_FILE=${AUTHELIA_JWT_SECRET_FILE}
+      - AUTHELIA_SESSION_SECRET_FILE=${AUTHELIA_SESSION_SECRET_FILE}
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.authelia.rule=Host(`authelia.ozeliurs.com`)'
+      - 'traefik.http.routers.authelia.entrypoints=https'
+      - 'traefik.http.routers.authelia.tls=true'
+      - 'traefik.http.routers.authelia.tls.certresolver=letsencrypt'
+      - 'traefik.http.middlewares.authelia.forwardauth.address=http://authelia:9091/api/authz/forward-auth?authelia_url=https://authelia.ozeliurs.com'
+      - 'traefik.http.middlewares.authelia.forwardauth.trustForwardHeader=true'
+      - 'traefik.http.middlewares.authelia.forwardauth.authResponseHeaders=Remote-User,Remote-Groups,Remote-Name,Remote-Email'
+
+  redis:
+    image: redis:alpine
+    container_name: authelia_redis
+    restart: unless-stopped
+    volumes:
+      - ./redis:/data
+    networks:
+      - traefik
+
+networks:
+  traefik:
+    external: true
