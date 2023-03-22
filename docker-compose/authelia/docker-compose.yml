@@ -18,12 +18,15 @@ services:
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.authelia.rule=Host(`authelia.ozeliurs.com`)'
-      - 'traefik.http.routers.authelia.entrypoints=websecure'
+      - 'traefik.http.routers.authelia.entryPoints=websecure'
       - 'traefik.http.routers.authelia.tls=true'
       - 'traefik.http.routers.authelia.tls.certresolver=cloudflare'
-      - 'traefik.http.middlewares.authelia.forwardauth.address=http://authelia:9091/api/authz/forward-auth?authelia_url=https://authelia.ozeliurs.com'
-      - 'traefik.http.middlewares.authelia.forwardauth.trustForwardHeader=true'
-      - 'traefik.http.middlewares.authelia.forwardauth.authResponseHeaders=Remote-User,Remote-Groups,Remote-Name,Remote-Email'
+      - 'traefik.http.middlewares.authelia.forwardAuth.address=http://authelia:9091/api/verify?rd=https://authelia.ozeliurs.com/'
+      - 'traefik.http.middlewares.authelia.forwardAuth.trustForwardHeader=true'
+      - 'traefik.http.middlewares.authelia.forwardAuth.authResponseHeaders=Remote-User,Remote-Groups,Remote-Name,Remote-Email'
+      - 'traefik.http.middlewares.authelia-basic.forwardAuth.address=http://authelia:9091/api/verify?auth=basic'
+      - 'traefik.http.middlewares.authelia-basic.forwardAuth.trustForwardHeader=true'
+      - 'traefik.http.middlewares.authelia-basic.forwardAuth.authResponseHeaders=Remote-User,Remote-Groups,Remote-Name,Remote-Email'
 
 networks:
   traefik:
