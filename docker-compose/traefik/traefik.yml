@@ -47,16 +47,31 @@ entryPoints:
   websecure:
     address: :443
 
+    http:
+      tls:
+        certResolver: cloudflare
+        domains:
+          - main: "ozeliurs.com"
+            sans: "*.ozeliurs.com"
+
 # Configure your CertificateResolver here...
 # ---
 certificatesResolvers:
-  cloudflare:
+  letsencrypt:
     acme:
       email: admin@ozeliurs.com
       storage: /letsencrypt/acme.json
       caServer: "https://acme-v02.api.letsencrypt.org/directory"
       httpChallenge:
         entryPoint: web
+  cloudflare:
+    acme:
+      email: admin@ozeliurs.com
+      storage: /letsencrypt/cf.json
+      dnsChallenge:
+        provider: cloudflare
+        delayBeforeCheck: 0
+  
 
 # (Optional) Disable TLS version 1.0 and 1.1
 #   options:
