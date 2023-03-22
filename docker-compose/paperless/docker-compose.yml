@@ -20,7 +20,8 @@ services:
       - ./consume:/usr/src/paperless/consume
       - ./export:/usr/src/paperless/export
     environment:
-      PAPERLESS_REDIS: redis://redis_paperless:6379
+      - PAPERLESS_URL=https://paper.ozeliurs.com
+      - PAPERLESS_REDIS=redis://redis_paperless:6379
     networks:
       - traefik
     labels:
