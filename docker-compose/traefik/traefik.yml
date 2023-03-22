@@ -47,13 +47,6 @@ entryPoints:
   websecure:
     address: :443
 
-    http:
-      tls:
-        certResolver: cloudflare
-        domains:
-          - main: "ozeliurs.com"
-            sans: "*.ozeliurs.com"
-
 # Configure your CertificateResolver here...
 # ---
 certificatesResolvers:

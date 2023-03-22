@@ -21,6 +21,12 @@ services:
       - .env
     labels:
       - "traefik.enable=true"
+      # Wildcard certificate
+      - "traefik.http.routers.wildcard.tls.domains[0].main=mydomain.com"
+      - "traefik.http.routers.wildcard.tls.domains[0].sans=*.mydomain.com"
+      - "traefik.http.routers.wildcard.tls.certResolver=cloudfare"
+
+      # Traefik dashboard
       - "traefik.http.routers.traefik.rule=Host(`traefik.ozeliurs.com`)"
       - "traefik.http.routers.traefik.entrypoints=websecure"
       - "traefik.http.routers.traefik.tls=true"
