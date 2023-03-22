@@ -13,8 +13,8 @@ services:
       - traefik
     environment:
       - TZ=Europe/Paris
-      - AUTHELIA_JWT_SECRET_FILE="/config/jwt_secret"
-      - AUTHELIA_SESSION_SECRET_FILE="/config/session_secret"
+      - AUTHELIA_JWT_SECRET_FILE=/config/jwt_secret
+      - AUTHELIA_SESSION_SECRET_FILE=/config/session_secret
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.authelia.rule=Host(`authelia.ozeliurs.com`)'
