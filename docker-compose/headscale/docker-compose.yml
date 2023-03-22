@@ -4,11 +4,13 @@ services:
   headscale:
     image: headscale/headscale:0.21
     container_name: headscale
+    restart: unless-stopped
     volumes:
       - ./container-config:/etc/headscale
       - ./container-data/data:/var/lib/headscale
     entrypoint: headscale serve
-    restart: unless-stopped
+    ports:
+      - 3478:3478
     networks:
       - traefik
     labels:
