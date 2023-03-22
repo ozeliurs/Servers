@@ -1,5 +1,12 @@
 # Authelia
 
+## Setup
+
+```bash
+cp .env.example .env
+nano .env
+```
+
 ## Add users
 
 ```bash
