@@ -1,0 +1,27 @@
+
+
+version: '3.7'
+
+services:
+  vault:
+    image: vault:latest
+    container_name: vault
+    cap_add:
+      - IPC_LOCK
+    command: server -config=/vault/config/vault.hcl
+    volumes:
+      - ./vault.json:/vault/config/vault.json
+      - ./file:/vault/file
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.vault.rule=Host(`vault.example.com`)"
+      - "traefik.http.routers.vault.entrypoints=websecure"
+      - "traefik.http.routers.vault.tls=true"
+      - "traefik.http.routers.vault.tls.certresolver=cloudflare"
+      - "traefik.http.services.vault.loadbalancer.server.port=8200"
+
+networks:
+  traefik:
+    external: true
