@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  zentao:
+    image: easysoft/zentao:18.1
+    container_name: zentao
+    volumes:
+      - ./zentao:/www/zentaopms
+      - ./mysqldata:/var/lib/mysql
+    restart: unless-stopped
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.zentao.entrypoints=websecure"
+      - "traefik.http.routers.zentao.rule=Host(`zentao.ozeliurs.com`)"
+      - "traefik.http.routers.zentao.tls=true"
+      - "traefik.http.routers.zentao.tls.certresolver=cloudflare"
+      - "traefik.http.services.zentao.loadbalancer.server.port=80"
+
+networks:
+  traefik:
+    external: true
