@@ -1,5 +1,3 @@
-
-
 version: '3.7'
 
 services:
@@ -10,8 +8,8 @@ services:
       - IPC_LOCK
     command: server -config=/vault/config/vault.json
     volumes:
-      - ./vault.json:/vault/config/vault.json
-      - ./file:/vault/file
+      - ./vault.json:/vault/config/vault.json:ro
+      - ./vault:/vault
     networks:
       - traefik
     labels:
