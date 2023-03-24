@@ -6,9 +6,9 @@ services:
     container_name: vault
     cap_add:
       - IPC_LOCK
-    command: server -config=/vault/config/vault.json
+    command: server -config=/vault/config/vault.hcl -non-interactive -log-level=debug
     volumes:
-      - ./vault.json:/vault/config/vault.json:ro
+      - ./vault.hcl:/vault/config/vault.hcl:ro
       - ./vault:/vault
     networks:
       - traefik
