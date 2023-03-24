@@ -8,6 +8,8 @@ services:
       - ./zentao:/www/zentaopms
       - ./mysqldata:/var/lib/mysql
     restart: unless-stopped
+    env_file:
+      - .env
     networks:
       - traefik
     labels:
