@@ -1,0 +1,21 @@
+version: '3.7'
+
+services:
+  perkeep:
+    image: gcr.io/perkeep-containers/perkeep:0.10
+    container_name: perkeep
+    restart: unless-stopped
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.perkeep.rule=Host(`perkeep.ozeliurs.com`)"
+      - "traefik.http.routers.perkeep.entrypoints=websecure"
+      - "traefik.http.routers.perkeep.tls=true"
+      - "traefik.http.routers.perkeep.tls.certresolver=cloudflare"
+      - "traefik.http.services.perkeep.loadbalancer.server.port=80"
+      #- "traefik.http.routers.perkeep.middlewares=authelia@docker"
+
+networks:
+  traefik:
+    external: true
