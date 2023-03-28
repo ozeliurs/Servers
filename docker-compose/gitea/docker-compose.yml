@@ -2,7 +2,7 @@ version: "3"
 
 services:
   web_gitea:
-    image: gitea/gitea:1.18.5
+    image: gitea/gitea:1.19
     container_name: gitea
     restart: unless-stopped
     environment:
@@ -19,13 +19,13 @@ services:
       - gitea_data:/data
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
-    ports:
-      - "22:22"
+    # ports:
+    #   - "[::]:22:22"
     depends_on:
       - db_gitea
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.gitea.rule=Host(`git.oze.li`)"
+      - "traefik.http.routers.gitea.rule=Host(`git.ozeliurs.com`)"
       - "traefik.http.routers.gitea.entrypoints=websecure"
       - "traefik.http.services.gitea.loadbalancer.server.port=3000"
       - "traefik.http.routers.gitea.tls.certresolver=cloudflare"
