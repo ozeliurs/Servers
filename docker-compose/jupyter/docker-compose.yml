@@ -8,9 +8,10 @@ services:
     #environment:
     #  - NOTEBOOK_ARGS="--collaborative"
     command: start-notebook.sh --collaborative
-    
     networks:
       - traefik
+    volumes:
+      - ./jupyter:/home/jovyan
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.jupyter.rule=Host(`jupyter.ozeliurs.com`)"
