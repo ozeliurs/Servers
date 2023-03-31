@@ -8,12 +8,12 @@ positions:
 clients:
   - url: http://log.ozeliurs.com/loki/api/v1/push
 
-basic_auth:
-  # The username to use for basic auth
-  username: "log"
+  - basic_auth:
+      # The username to use for basic auth
+      username: "log"
 
-  # The file containing the password for basic auth
-  password_file: /etc/promtail/basicauth
+      # The file containing the password for basic auth
+      password_file: /etc/promtail/basicauth
 
 # local machine logs
 # scrape_configs:
