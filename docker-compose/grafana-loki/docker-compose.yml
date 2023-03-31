@@ -3,6 +3,7 @@ version: "3"
 services:
   loki:
     image: grafana/loki:latest
+    container_name: loki
     volumes:
       - ./loki:/etc/loki
       - ./data:/tmp/loki
@@ -21,6 +22,7 @@ services:
 
   grafana:
     image: grafana/grafana:latest
+    container_name: grafana
     user: "0"
     volumes:
     - ./grafana:/var/lib/grafana
