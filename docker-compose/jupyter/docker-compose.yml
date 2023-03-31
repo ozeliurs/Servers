@@ -1,0 +1,21 @@
+version: '3.7'
+
+services:
+  jupyter:
+    image: jupyter/base-notebook
+    restart: unless-stopped
+    container_name: jupyter
+    environment:
+      - NOTEBOOK_ARGS="--collaborative"
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.jupyter.rule=Host(`jupyter.ozeliurs.com`)"
+      - "traefik.http.routers.jupyter.entrypoints=websecure"
+      - "traefik.http.routers.jupyter.tls=true"
+      - "traefik.http.routers.jupyter.tls.certresolver=cloudflare"
+
+networks:
+  traefik:
+    external: true
