@@ -17,6 +17,7 @@ services:
       - "traefik.http.routers.loki.rule=Host(`log.ozeliurs.com`)"
       - "traefik.http.routers.loki.entrypoints=websecure"
       - "traefik.http.services.loki.loadbalancer.server.port=3100"
+      - "traefik.http.routers.traefik_https.middlewares=loki"
       - "traefik.http.middlewares.loki.basicauth.users=logs:$$2y$$05$$LRwz0OsJs2FNITnjSLXUFOj5o7/dl3kj.gBvuMaukJt7ETGyOmIPm"
       - "traefik.http.routers.loki.tls.certresolver=cloudflare"
 
