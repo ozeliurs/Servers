@@ -6,8 +6,7 @@ services:
     volumes:
       - ./loki:/etc/loki
       - ./data:/tmp/loki
-    ports:
-      - "3100:3100"
+    user: "0"
     restart: unless-stopped
     command: -config.file=/etc/loki/loki-config.yml
     networks:
@@ -22,7 +21,7 @@ services:
 
   grafana:
     image: grafana/grafana:latest
-    user: "1000"
+    user: "0"
     volumes:
     - ./grafana:/var/lib/grafana
     restart: unless-stopped
