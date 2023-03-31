@@ -5,6 +5,7 @@ services:
     image: grafana/loki:2.4.0
     volumes:
       - ./loki:/etc/loki
+      - ./data:/tmp/loki
     ports:
       - "3100:3100"
     restart: unless-stopped
