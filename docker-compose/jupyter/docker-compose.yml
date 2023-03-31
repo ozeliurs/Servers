@@ -5,8 +5,8 @@ services:
     image: jupyter/base-notebook
     restart: unless-stopped
     container_name: jupyter
-    environment:
-      - NOTEBOOK_ARGS="--collaborative"
+    #environment:
+    #  - NOTEBOOK_ARGS="--collaborative"
     networks:
       - traefik
     labels:
