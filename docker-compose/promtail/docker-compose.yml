@@ -1,8 +1,5 @@
 version: "3"
 
-networks:
-  loki:
-
 services:
   promtail:
     image: grafana/promtail:2.4.0
