@@ -18,8 +18,8 @@ services:
       - "traefik.http.routers.weaviate.rule=Host(`weaviate.ozeliurs.com`)"
       - "traefik.http.routers.weaviate.entrypoints=websecure"
       - "traefik.http.routers.weaviate.tls=true"
-      - "traefik.http.routers.weaviate.tls.certresolver=cloudflare"
-
+      - "traefik.http.services.weaviate.loadbalancer.server.port=8080"
+      
 networks:
   traefik:
     external: true
