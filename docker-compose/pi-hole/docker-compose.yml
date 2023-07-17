@@ -3,7 +3,8 @@ version: '3.0'
 services:
   pihole:
     container_name: pihole
-    build: build/.
+    # build: build/.
+    image: cbcrowe/pihole-unbound:latest
     restart: unless-stopped
     ports:
       - "173.249.4.153:53:53/tcp"
