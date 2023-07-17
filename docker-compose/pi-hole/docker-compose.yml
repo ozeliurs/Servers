@@ -4,6 +4,7 @@ services:
   pihole:
     container_name: pihole
     build: build/.
+    restart: unless-stopped
     ports:
       - "53:53/tcp"
       - "53:53/udp"
@@ -16,7 +17,17 @@ services:
     volumes:
       - etc_pihole-unbound:/etc/pihole:rw
       - etc_pihole_dnsmasq-unbound:/etc/dnsmasq.d:rw
-    restart: unless-stopped
+    networks:
+      traefik:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.pihole.rule=Host(`pihole.ozeliurs.com`)"
+      - "traefik.http.routers.pihole.entrypoints=websecure"
+      - "traefik.http.routers.pihole.tls.certresolver=cloudflare"
+      - "traefik.http.routers.pihole.service=pihole"
+      - "traefik.http.services.pihole.loadbalancer.server.port=80"
+      - "traefik.http.routers.pihole.middlewares=pihole-stripprefix"
+      - "traefik.http.middlewares.pihole-stripprefix.stripprefix.prefixes=/pihole"
 
 volumes:
   etc_pihole-unbound:
