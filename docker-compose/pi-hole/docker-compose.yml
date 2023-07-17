@@ -28,8 +28,6 @@ services:
       - "traefik.http.routers.pihole.tls.certresolver=cloudflare"
       - "traefik.http.routers.pihole.service=pihole"
       - "traefik.http.services.pihole.loadbalancer.server.port=80"
-      - "traefik.http.middlewares.pihole.addprefix.prefix: '/admin'"
-
 
 volumes:
   etc_pihole-unbound:
