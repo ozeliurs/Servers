@@ -6,8 +6,8 @@ services:
     build: build/.
     restart: unless-stopped
     ports:
-      - "53:53/tcp"
-      - "53:53/udp"
+      - "173.249.4.153:53:53/tcp"
+      - "173.249.4.153:53:53/udp"
     environment:
       - TZ=${TZ:-UTC}
       - WEBPASSWORD=${WEBPASSWORD}
