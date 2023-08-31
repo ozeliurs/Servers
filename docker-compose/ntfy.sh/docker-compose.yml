@@ -1,0 +1,27 @@
+version: "2.3"
+
+services:
+  ntfy:
+    image: binwiederhier/ntfy
+    container_name: ntfy
+    restart: unless-stopped
+    command:
+      - serve
+    volumes:
+      - ./cache:/var/cache/ntfy
+      - ./ntfy:/etc/ntfy
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ntfy.rule=Host(`ntfy.ozeliurs.com`)"
+      - "traefik.http.routers.ntfy.entrypoints=websecure"
+      - "traefik.http.routers.ntfy.tls=true"
+      - "traefik.http.routers.ntfy.tls.certresolver=cloudflare"
+      - "traefik.http.routers.ntfy.service=ntfy"
+      - "traefik.http.services.ntfy.loadbalancer.server.port=80"
+
+networks:
+  traefik:
+    external: true
+
