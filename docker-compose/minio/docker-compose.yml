@@ -2,17 +2,14 @@ version: '3.9'
 services:
   minio:
     command: 'server --console-address ":9090"'
-    image: minio
+    image: minio/minio:latest
     container_name: minio_local
     restart: unless-stopped
-    environment:
-      - MINIO_CONFIG_ENV_FILE=/etc/config.env
+    env_file:
+      - .env
     volumes:
       - '/etc/default/minio:/etc/config.env'
       - './data:/mnt/data'
-    ports:
-      - '9090:9090'
-      - '9000:9000'
     networks:
       - traefik
     labels:
