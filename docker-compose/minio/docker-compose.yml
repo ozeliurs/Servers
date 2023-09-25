@@ -6,7 +6,6 @@ services:
     container_name: minio
     restart: unless-stopped
     environment:
-      - MINIO_SERVER_URL=https://minio.ozeliurs.com
       - MINIO_VOLUMES=/mnt/data
     env_file:
       - .env
