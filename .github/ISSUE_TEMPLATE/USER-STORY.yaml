@@ -28,7 +28,6 @@ body:
         - M
         - L
         - XL
-      default: M
     validations:
       required: true
   - type: textarea
