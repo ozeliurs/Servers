@@ -1,4 +1,4 @@
-name: User Story
+name: 👨‍💼 User Story
 description: Add a user story
 title: "US: As a <role>, I want <goal/desire> so that <benefit>."
 assignees:
@@ -11,18 +11,18 @@ labels: [ "user-story" ]
 body:
   - type: markdown
     attributes:
-      value: Firstly fill out the title of your User Story
+      value: ⚠️ Firstly fill out the title of your User Story ⚠️
   - type: dropdown
     id: difficulty
     attributes:
       label: Difficulty
       description: The difficulty of the User Story.
       options:
-        - XS
-        - S
-        - M
-        - L
-        - XL
+        - XS 💤
+        - S 👍
+        - M ⚠️
+        - L ‼️
+        - XL 🫄
     validations:
       required: true
   - type: textarea
@@ -36,6 +36,15 @@ body:
         Also, here are a few points that need to be addressed:\
         \
         1. Constraint 1;\
-        2. Constraint 2;\
+        2. Constraint 2;
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A description of the User Story.
+      placeholder: |
+        As a <role>, I want <goal/desire> so that <benefit>.
     validations:
       required: true
