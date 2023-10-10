@@ -12,9 +12,9 @@ body:
 - type: textarea
     id: title
     attributes:
-      label: User Story Title
-      description: The title of your User Story with the format "**As a** <role>, **I want** <goal/desire> **so that** <benefit>."
-      placeholder: As a <role>, I want <goal/desire> so that <benefit>.
+      label: "User Story Title"
+      description: "The title of your User Story with the format \"**As a** <role>, **I want** <goal/desire> **so that** <benefit>.\""
+      placeholder: "As a <role>, I want <goal/desire> so that <benefit>."
     validations:
       required: true
 - type: dropdown
