@@ -25,24 +25,31 @@ body:
         - XL 🫄
     validations:
       required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: The priority of the User Story.
+      options:
+        - 1 (Low)
+        - 10 (Medium)
+        - 100 (High)
+        - 1000 (Critical)
+        - 10000 (Blocker)
+    validations:
+      required: true
   - type: textarea
     id: acceptance
     attributes:
       label: Acceptance Criteria
       description: The acceptance criteria are the conditions that the story must meet to be considered complete and finished.
-      placeholder: 1. If I do <A>, <B> should happen.]\
-        2. [If I do <C>, <D> should happen.]\
-        \
-        Also, here are a few points that need to be addressed:\
-        \
-        1. Constraint 1;\
-        2. Constraint 2;
+      placeholder: 1. If I do <A>, <B> should happen.
     validations:
       required: true
   - type: textarea
     id: description
     attributes:
-      label: Description
+      label: Scénario
       description: A description of the User Story.
       placeholder: |
         As a <role>, I want <goal/desire> so that <benefit>.
