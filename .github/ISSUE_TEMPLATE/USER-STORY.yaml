@@ -1,4 +1,4 @@
-name: 👨‍💼 User Story
+name: User Story
 description: Add a user story
 title: "US <title>"
 assignees:
@@ -9,14 +9,14 @@ assignees:
 labels: [ "user-story" ]
 
 body:
-  - type: textarea
+- type: textarea
     attributes:
       label: User Story Title
       description: The title of your User Story with the format "**As a** <role>, **I want** <goal/desire> **so that** <benefit>."
       placeholder: As a <role>, I want <goal/desire> so that <benefit>.
     validations:
       required: true
-  - type: dropdown
+- type: dropdown
     attributes:
       label: Difficulty
       description: The difficulty of the User Story.
@@ -27,9 +27,9 @@ body:
         - L
         - XL
       default: M
-      validations:
-        required: true
-  - type: textarea
+    validations:
+      required: true
+- type: textarea
     attributes:
       label: Acceptance Criteria
       description: The acceptance criteria are the conditions that the story must meet to be considered complete and finished.
