@@ -1,6 +1,6 @@
 name: User Story
 description: Add a user story
-title: "US <title>"
+title: "US: As a <role>, I want <goal/desire> so that <benefit>."
 assignees:
   - ozeliurs
   - Apoorva64
@@ -9,14 +9,8 @@ assignees:
 labels: [ "user-story" ]
 
 body:
-  - type: textarea
-    id: "title"
-    attributes:
-      label: "User Story Title"
-      description: "The title of your User Story with the format \"**As a** <role>, **I want** <goal/desire> **so that** <benefit>.\""
-      placeholder: "As a <role>, I want <goal/desire> so that <benefit>."
-    validations:
-      required: true
+  - type: markdown
+    value: Firstly fill out the title of your User Story
   - type: dropdown
     id: difficulty
     attributes:
