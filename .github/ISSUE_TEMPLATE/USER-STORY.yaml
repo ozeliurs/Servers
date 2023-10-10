@@ -10,16 +10,16 @@ labels: [ "user-story" ]
 
 body:
 - type: textarea
+    id: title
     attributes:
-      id: title
       label: User Story Title
       description: The title of your User Story with the format "**As a** <role>, **I want** <goal/desire> **so that** <benefit>."
       placeholder: As a <role>, I want <goal/desire> so that <benefit>.
     validations:
       required: true
 - type: dropdown
+    id: difficulty
     attributes:
-      id: difficulty
       label: Difficulty
       description: The difficulty of the User Story.
       options:
@@ -32,8 +32,8 @@ body:
     validations:
       required: true
 - type: textarea
+    id: acceptance
     attributes:
-      id: acceptance
       label: Acceptance Criteria
       description: The acceptance criteria are the conditions that the story must meet to be considered complete and finished.
       placeholder: 1. If I do <A>, <B> should happen.]\
