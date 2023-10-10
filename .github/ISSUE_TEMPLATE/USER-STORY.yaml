@@ -10,7 +10,7 @@ labels: [ "user-story" ]
 
 body:
   - type: textarea
-      id: "title"
+      id: title
       attributes:
         label: "User Story Title"
         description: "The title of your User Story with the format \"**As a** <role>, **I want** <goal/desire> **so that** <benefit>.\""
