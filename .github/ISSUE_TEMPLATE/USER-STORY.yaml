@@ -10,7 +10,8 @@ labels: [ "user-story" ]
 
 body:
   - type: markdown
-    value: Firstly fill out the title of your User Story
+    attributes:
+      value: Firstly fill out the title of your User Story
   - type: dropdown
     id: difficulty
     attributes:
