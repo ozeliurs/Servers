@@ -1,4 +1,3 @@
----
 name: 👨‍💼 User Story
 about: Add a user story
 title: "US <title>"
@@ -17,7 +16,6 @@ body:
       placeholder: As a <role>, I want <goal/desire> so that <benefit>.
     validations:
       required: true
-      
   - type: dropdown
     attributes:
       label: Difficulty
@@ -31,7 +29,6 @@ body:
       default: M
       validations:
         required: true
-
   - type: textarea
     attributes:
       label: Acceptance Criteria
@@ -45,4 +42,3 @@ body:
         2. Constraint 2;\
     validations:
       required: true
----
