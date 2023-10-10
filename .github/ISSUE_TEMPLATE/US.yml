@@ -1,0 +1,46 @@
+name: 👨‍💼 User Story
+about: Add a user story
+title: "US <title>"
+assignees:
+  - ozeliurs
+  - Apoorva64
+  - BedinoTom
+  - neoteristis
+labels: [ "user-story" ]
+
+body:
+  - type: textarea
+    attributes:
+      label: User Story Title
+      description: The title of your User Story with the format "**As a** <role>, **I want** <goal/desire> **so that** <benefit>."
+      placeholder: As a <role>, I want <goal/desire> so that <benefit>.
+    validations:
+      required: true
+      
+  - type: dropdown
+    attributes:
+      label: Difficulty
+      description: The difficulty of the User Story.
+      options:
+        - XS
+        - S
+        - M
+        - L
+        - XL
+      default: M
+      validations:
+        required: true
+
+  - type: textarea
+    attributes:
+      label: Acceptance Criteria
+      description: The acceptance criteria are the conditions that the story must meet to be considered complete and finished.
+      placeholder: 1. If I do <A>, <B> should happen.]\
+        2. [If I do <C>, <D> should happen.]\
+        \
+        Also, here are a few points that need to be addressed:\
+        \
+        1. Constraint 1;\
+        2. Constraint 2;\
+    validations:
+      required: true
