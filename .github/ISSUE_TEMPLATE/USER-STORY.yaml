@@ -7,6 +7,7 @@ assignees:
   - BedinoTom
   - neoteristis
 labels: [ "user-story" ]
+projects: [ "BytEats" ]
 
 body:
   - type: markdown
@@ -46,12 +47,4 @@ body:
       placeholder: 1. If I do <A>, <B> should happen.
     validations:
       required: true
-  - type: textarea
-    id: description
-    attributes:
-      label: Scénario
-      description: A description of the User Story.
-      placeholder: |
-        As a <role>, I want <goal/desire> so that <benefit>.
-    validations:
-      required: true
+
