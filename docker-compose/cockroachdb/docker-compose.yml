@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  roach:
+    image: cockroachdb/cockroach:v23.1.11
+    container_name: roach
+    restart: unless-stopped
+    command: start --certs-dir=/cockroach/cockroach-certs --advertise-addr=n1.oze.li:26257 --join=ozeliurs.freeboxos.fr:26257 --cache=.25 --max-sql-memory=.25 --store=/cockroach/cockroach-data
+    volumes:
+      - ./data:/cockroach/cockroach-data
+      - ./certs:/cockroach/cockroach-certs
+    ports:
+      - "26257:26257"
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.roach.rule=Host(`cockroach.ozeliurs.com`)"
+      - "traefik.http.routers.roach.entrypoints=websecure"
+      - "traefik.http.services.roach.loadbalancer.server.port=8080"
+      - "traefik.http.routers.roach.tls.certresolver=cloudflare"
+
+networks:
+  traefik:
+    external: true
+
