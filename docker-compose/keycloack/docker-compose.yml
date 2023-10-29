@@ -36,3 +36,7 @@ services:
       - "traefik.http.routers.keycloak.tls.certresolver=cloudflare"
       - "traefik.http.routers.keycloak.service=keycloak"
       - "traefik.http.services.keycloak.loadbalancer.server.port=8080"
+
+networks:
+  traefik:
+    external: true
