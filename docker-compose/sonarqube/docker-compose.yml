@@ -36,6 +36,31 @@ services:
     networks:
       - traefik
 
+  sonar_buddy:
+    image: ozeliurs/sonar-buddy:latest
+    restart: unless-stopped
+    depends_on:
+      - sonarqube
+    env_file:
+      - .env.example
+    environment:
+      - SONAR_HOST="sonarqube.ozeliurs.com"
+      - BASE_URL="https://sonarqube.ozeliurs.com/reset_password"
+    volumes:
+      - ./users.csv:/app/users.csv
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.sonarbuddy.rule=Host(`sonarqube.ozeliurs.com`) && PathPrefix(`/reset_password`)"
+      - "traefik.http.routers.sonarbuddy.entrypoints=websecure"
+      - "traefik.http.routers.sonarbuddy.tls=true"
+      - "traefik.http.routers.sonarbuddy.tls.certresolver=cloudflare"
+      - "traefik.http.routers.sonarbuddy.service=sonarbuddy"
+      - "traefik.http.services.sonarbuddy.loadbalancer.server.port=8080"
+      - "traefik.http.routers.middlewares=sonarbuddy-stripprefix"
+      - "traefik.http.middlewares.sonarbuddy-stripprefix.stripprefix.prefixes=/reset_password"
+
 networks:
   traefik:
     external: true
