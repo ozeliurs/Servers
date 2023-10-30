@@ -57,7 +57,7 @@ services:
       - "traefik.http.routers.sonarbuddy.tls=true"
       - "traefik.http.routers.sonarbuddy.tls.certresolver=cloudflare"
       - "traefik.http.routers.sonarbuddy.service=sonarbuddy"
-      - "traefik.http.services.sonarbuddy.loadbalancer.server.port=8080"
+      - "traefik.http.services.sonarbuddy.loadbalancer.server.port=5000"
       - "traefik.http.routers.middlewares=sonarbuddy-stripprefix"
       - "traefik.http.middlewares.sonarbuddy-stripprefix.stripprefix.prefixes=/reset_password"
 
