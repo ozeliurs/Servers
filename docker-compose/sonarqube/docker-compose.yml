@@ -3,7 +3,7 @@ version: "3"
 services:
 
   sonarqube:
-    image: sonarqube:community
+    image: git.ozeliurs.com/ozeliurs/sonarqube:10.1.2
     restart: unless-stopped
     depends_on:
       - db_sonarqube
