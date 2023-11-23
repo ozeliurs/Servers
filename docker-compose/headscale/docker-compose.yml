@@ -24,7 +24,7 @@ services:
       - "traefik.http.services.headscale.loadbalancer.server.port=8080"
 
   headscale-webui:
-    image: ghcr.io/ifargle/headscale-webui:testing
+    image: ghcr.io/ifargle/headscale-webui:latest
     container_name: headscale-webui
     environment:
       - TZ=Europe/Paris
