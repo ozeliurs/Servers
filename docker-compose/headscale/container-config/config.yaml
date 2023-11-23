@@ -96,3 +96,21 @@ derp:
   # Whether to automatically update the DERP map and how often.
   auto_update_enabled: true
   update_frequency: 24h
+
+oidc:
+  # Block further startup until the OIDC provider is healthy and available
+  only_start_if_oidc_is_available: true
+
+  # Specified by your OIDC provider
+  issuer: "https://keycloak.auth.apoorva64.com/realms/lab/.well-known/openid-configuration"
+  client_id: "headscale-main"
+  client_secret_path: "/etc/headscale/oidc-client-secret"
+
+  # Customize the scopes used in the OIDC flow, defaults to "openid", "profile" and "email" and add custom query
+  # parameters to the Authorize Endpoint request. Scopes default to "openid", "profile" and "email".
+  scope: ["openid", "profile", "email"]
+
+  allowed_groups:
+    - /headscale
+
+  strip_email_domain: true
