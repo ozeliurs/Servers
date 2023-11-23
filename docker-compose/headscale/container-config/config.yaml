@@ -93,6 +93,8 @@ derp:
   urls:
     - https://controlplane.tailscale.com/derpmap/default
 
+  paths: []
+
   # Whether to automatically update the DERP map and how often.
   auto_update_enabled: true
   update_frequency: 24h
