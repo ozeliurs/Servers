@@ -23,6 +23,30 @@ services:
       - "traefik.http.routers.headscale.tls.certresolver=cloudflare"
       - "traefik.http.services.headscale.loadbalancer.server.port=8080"
 
+  headscale-webui:
+    image: ghcr.io/ifargle/headscale-webui:latest
+    container_name: headscale-webui
+    environment:
+      - TZ=Europe/Paris
+      - HS_SERVER=http://headscale
+      - DOMAIN_NAME=https://headscale-ui.ozeliurs.com
+    env_file:
+      - .env
+    volumes:
+      - ./volume:/data
+      - ./container-config:/etc/headscale/:ro
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+
+      # Server Config
+      - "traefik.http.routers.headscale-webui.rule=Host(`headscale-ui.ozeliurs.com`)"
+      - "traefik.http.routers.headscale-webui.entrypoints=websecure"
+      - "traefik.http.routers.headscale-webui.tls=true"
+      - "traefik.http.routers.headscale-webui.tls.certresolver=cloudflare"
+      - "traefik.http.services.headscale-webui.loadbalancer.server.port=5000"
+
 networks:
   traefik:
     external: true
