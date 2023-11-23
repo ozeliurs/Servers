@@ -28,7 +28,7 @@ services:
     container_name: headscale-webui
     environment:
       - TZ=Europe/Paris
-      - HS_SERVER=http://headscale:3478
+      - HS_SERVER=https://headscale.ozeliurs.com
       - DOMAIN_NAME=https://headscale-ui.ozeliurs.com
     env_file:
       - .env
