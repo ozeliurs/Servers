@@ -115,4 +115,4 @@ oidc:
   allowed_groups:
     - /headscale
 
-  strip_email_domain: true
+  strip_email_domain: false
