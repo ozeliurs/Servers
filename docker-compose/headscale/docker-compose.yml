@@ -30,6 +30,7 @@ services:
       - TZ=Europe/Paris
       - HS_SERVER=https://headscale.ozeliurs.com
       - DOMAIN_NAME=https://headscale-ui.ozeliurs.com
+      - SCRIPT_NAME=""
       - AUTH_TYPE=oidc
     env_file:
       - .env
