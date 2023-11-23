@@ -30,8 +30,6 @@ services:
       - TZ=Europe/Paris
       - HS_SERVER=https://headscale.ozeliurs.com
       - DOMAIN_NAME=https://headscale-ui.ozeliurs.com/
-      - SCRIPT_NAME=""
-      - AUTH_TYPE=oidc
     env_file:
       - .env
     volumes:
@@ -48,6 +46,7 @@ services:
       - "traefik.http.routers.headscale-webui.tls=true"
       - "traefik.http.routers.headscale-webui.tls.certresolver=cloudflare"
       - "traefik.http.services.headscale-webui.loadbalancer.server.port=5000"
+      - "traefik.http.routers.headscale-webui.middlewares=authelia@docker"
 
 networks:
   traefik:
